@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="alert alert-success">
-        تم حذف الحدث بنجاح!
+        Event deleted successfully!
     </div>
 
-    <a href="{{ route('events.index') }}" class="btn btn-primary">العودة إلى القائمة</a>
+    <a href="{{ route('events.index') }}" class="btn btn-primary">Back to List</a>
 </div>
 @endsection
