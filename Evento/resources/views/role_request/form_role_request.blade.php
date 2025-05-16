@@ -3,67 +3,94 @@
 <head>
     <title>{{ $titleForm ?? 'Role Request' }}</title>
     <style>
+        /* إعداد الجسم: خلفية هادئة، ونموذج في وسط الشاشة */
         body {
+            margin: 0;
+            height: 100vh;
             font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
-            background-color: #f7f7f7;
         }
-        h1 {
-            color: #333;
-        }
+
+        /* الصندوق الرئيسي */
         form {
             background: white;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
-            max-width: 500px;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            max-width: 480px;
+            width: 100%;
+            box-sizing: border-box;
         }
+
+        h1 {
+            color: #222;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            font-size: 28px;
+            letter-spacing: 0.5px;
+        }
+
         label {
             display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #555;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
         }
+
         input[type="text"],
         input[type="number"],
         select {
             width: 100%;
-            padding: 8px 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 10px 14px;
+            margin-bottom: 20px;
+            border: 1.8px solid #ccc;
+            border-radius: 8px;
             font-size: 1rem;
             box-sizing: border-box;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
+
         input[type="text"]:focus,
         input[type="number"]:focus,
         select:focus {
-            border-color: #007BFF;
+            border-color: #4a90e2;
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
             outline: none;
         }
+
         button {
-            background-color: #007BFF;
+            background-color: #4a90e2;
             color: white;
-            font-weight: bold;
-            padding: 10px 16px;
+            font-weight: 700;
+            padding: 12px 0;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            width: 100%;
             transition: background-color 0.3s ease;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #357abd;
         }
+
         .errors {
             background-color: #ffe6e6;
-            border: 1px solid #ff4d4d;
+            border: 1.5px solid #ff4d4d;
             color: #b30000;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-sizing: border-box;
         }
+
         .errors ul {
             margin: 0;
             padding-left: 20px;
@@ -72,22 +99,22 @@
 </head>
 <body>
 
-    <h1>{{ $titleForm ?? 'Role Request' }}</h1>
+    <form action="{{ is_array($route) ? route($route[0], $route[1]) : route($route) }}" method="POST">
+        <h1>{{ $titleForm ?? 'Role Request' }}</h1>
 
-    @if ($errors->any())
-        <div class="errors">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-<form action="{{ is_array($route) ? route($route[0], $route[1]) : route($route) }}" method="POST">
         @csrf
         @if($method === 'put' || $method === 'patch')
             @method('PUT')
+        @endif
+
+        @if ($errors->any())
+            <div class="errors">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
         <label for="requested_role">Requested Role:</label>
