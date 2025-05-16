@@ -44,7 +44,6 @@ public function create()
      */
     public function store(Request $request)
     {
-        // أي مستخدم مسجل يقدر يرسل طلب رتبة
         $request->validate([
             'requested_role' => 'required|string|max:255',
         ]);
@@ -104,15 +103,18 @@ public function update(Request $request, $id)
     ]);
 
     $roleRequest = \App\Models\RoleRequest::findOrFail($id);
+    $oldStatus = $roleRequest->status;
+
     $roleRequest->update($request->all());
 
-    // إذا الحالة accepted، نحدث نوع المستخدم في جدول users
-    if ($request->status === 'accepted') {
-        $user = \App\Models\User::find($request->user_id);
-        if ($user) {
+    $user = \App\Models\User::find($request->user_id);
+    if ($user) {
+        if ($request->status === 'accepted') {
             $user->type = $request->requested_role;
-            $user->save();
+        } else {
+            $user->type = 'Attendee';
         }
+        $user->save();
     }
 
     return redirect()->route('rolerequest.index')->with('success', 'تم تحديث الطلب بنجاح!');
@@ -130,6 +132,15 @@ public function destroy($id)
     }
 
     $roleRequest = \App\Models\RoleRequest::findOrFail($id);
+
+    if ($roleRequest->status === 'accepted') {
+        $user = \App\Models\User::find($roleRequest->user_id);
+        if ($user) {
+            $user->type = 'Attendee';
+            $user->save();
+        }
+    }
+
     $roleRequest->delete();
 
     return redirect()->route('rolerequest.index')->with('success', 'تم حذف الطلب بنجاح!');
