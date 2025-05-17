@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleRequestController;
+Route::put('/rolerequest/{id}', [RoleRequestController::class, 'update'])->name('rolerequest.update');
 
 Route::resource('rolerequest', RoleRequestController::class);
 Route::get('/', function () {

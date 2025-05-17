@@ -4,21 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\RoleRequest;
+use App\Models\Profile;
+use Illuminate\Support\Facades\Auth;
 
 class RoleRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        if (auth()->user()->type === 'Admin') {
-            $roleRequests = RoleRequest::all();
-            return view('role_request.index', compact('roleRequests'));
-        } else {
-            return view('role_request.index');
-        }
+
+public function index()
+{
+    $user = Auth::user(); // المستخدم الحالي
+
+    // جلب البروفايل المرتبط
+    $profile = $user->profile;
+
+    if ($profile && $profile->role === 'Admin') {
+    $roleRequests = RoleRequest::orderBy('id', 'asc')->get();
+        return view('role_request.index', compact('roleRequests'));
+    } else {
+        return view('role_request.index');
     }
+}
+
 
 
     /**
@@ -26,9 +35,11 @@ class RoleRequestController extends Controller
      */
 public function create()
 {
-    if (auth()->user()->type !== 'Admin') {
-        abort(403, 'Unauthorized');
-    }
+if (auth()->user()->profile && auth()->user()->profile->role === 'Admin') {
+} else {
+    abort(403, 'Unauthorized');
+}
+
 
     return view('role_request.form_role_request', [
         'route' => 'rolerequest.store',
@@ -70,7 +81,7 @@ public function create()
      */
 public function edit($id)
 {
-    if (auth()->user()->type !== 'Admin') {
+    if (!(auth()->user()->profile && auth()->user()->profile->role === 'Admin')) {
         abort(403, 'Unauthorized');
     }
 
@@ -92,33 +103,32 @@ public function edit($id)
      */
 public function update(Request $request, $id)
 {
-    if (auth()->user()->type !== 'Admin') {
-        abort(403, 'Unauthorized');
-    }
-
-    $request->validate([
-        'requested_role' => 'required|string|max:255',
-        'user_id' => 'required|integer',
+    $validated = $request->validate([
         'status' => 'required|in:pending,accepted,rejected',
     ]);
 
-    $roleRequest = \App\Models\RoleRequest::findOrFail($id);
+    $roleRequest = RoleRequest::findOrFail($id);
     $oldStatus = $roleRequest->status;
 
-    $roleRequest->update($request->all());
+    $roleRequest->status = $validated['status'];
+    $roleRequest->save();
 
-    $user = \App\Models\User::find($request->user_id);
-    if ($user) {
-        if ($request->status === 'accepted') {
-            $user->type = $request->requested_role;
-        } else {
-            $user->type = 'Attendee';
+    $profile = Profile::where('user_id', $roleRequest->user_id)->first();
+
+    if ($profile) {
+        if ($oldStatus === 'accepted' && $validated['status'] !== 'accepted') {
+            // إذا تم تغيير الحالة من قبول لشيء ثاني، نرجع الرتبة
+            $profile->role = 'Attendee';
+        } elseif ($validated['status'] === 'accepted') {
+            // إذا الحالة صارت مقبولة، نحدث الرتبة
+            $profile->role = $roleRequest->requested_role;
         }
-        $user->save();
+        $profile->save();
     }
 
-    return redirect()->route('rolerequest.index')->with('success', 'تم تحديث الطلب بنجاح!');
+return redirect()->route('rolerequest.index')->with('success', 'تم تحديث حالة الطلب بنجاح.');
 }
+
 
 
 
@@ -127,17 +137,13 @@ public function update(Request $request, $id)
      */
 public function destroy($id)
 {
-    if (auth()->user()->type !== 'Admin') {
-        abort(403, 'Unauthorized');
-    }
-
-    $roleRequest = \App\Models\RoleRequest::findOrFail($id);
+    $roleRequest = RoleRequest::findOrFail($id);
 
     if ($roleRequest->status === 'accepted') {
-        $user = \App\Models\User::find($roleRequest->user_id);
-        if ($user) {
-            $user->type = 'Attendee';
-            $user->save();
+        $profile = Profile::where('user_id', $roleRequest->user_id)->first();
+        if ($profile) {
+            $profile->role = 'Attendee';
+            $profile->save();
         }
     }
 
@@ -145,6 +151,7 @@ public function destroy($id)
 
     return redirect()->route('rolerequest.index')->with('success', 'تم حذف الطلب بنجاح!');
 }
+
 
 
 }

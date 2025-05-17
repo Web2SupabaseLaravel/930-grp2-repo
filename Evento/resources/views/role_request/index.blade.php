@@ -180,39 +180,46 @@
         <div class="success">{{ session('success') }}</div>
     @endif
 
-    @if (auth()->user()->type === 'Admin')
+    {{-- تحقق صلاحية الادمن عن طريق profile.role --}}
+    @php
+        $profile = auth()->user()->profile ?? null;
+    @endphp
+
+    @if ($profile && $profile->role === 'Admin')
 
         {{-- جدول الطلبات مع أزرار التعديل والحذف --}}
         <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Requested Role</th>
-                    <th>User ID</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($roleRequests as $item)
-                    <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->requested_role }}</td>
-                        <td>{{ $item->user_id }}</td>
-                        <td>{{ $item->status }}</td>
-                        <td class="actions">
-                            <a href="{{ route('rolerequest.edit', $item->id) }}">Edit</a>
-                            <form action="{{ route('rolerequest.destroy', $item->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟');" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr><td colspan="5" style="text-align:center;">No role requests found.</td></tr>
-                @endforelse
-            </tbody>
+  <thead>
+    <tr>
+        <th>ID</th>
+        <th>Requested Role</th>
+        <th>Status</th>
+        <th>User ID</th>  <!-- اضفت هذا العمود -->
+        <th>Actions</th>
+    </tr>
+</thead>
+
+           <tbody>
+    @forelse ($roleRequests as $item)
+        <tr>
+            <td>{{ $item->id }}</td> 
+            <td>{{ $item->requested_role }}</td>
+            <td>{{ $item->status }}</td>
+            <td>{{ $item->user_id }}</td>
+            <td class="actions">
+                <a href="{{ route('rolerequest.edit', $item->id) }}">Edit</a>
+                <form action="{{ route('rolerequest.destroy', $item->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟');" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    @empty
+        <tr><td colspan="5" style="text-align:center;">No role requests found.</td></tr>
+    @endforelse
+</tbody>
+
         </table>
 
     @else

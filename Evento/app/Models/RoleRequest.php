@@ -15,5 +15,10 @@ protected $fillable = [
     'user_id',
     'status',
 ];
+public function profile()
+{
+    return $this->belongsTo(Profile::class, 'user_id', 'user_id');
+}
+
 
 }
