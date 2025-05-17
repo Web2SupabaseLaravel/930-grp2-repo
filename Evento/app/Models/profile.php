@@ -14,6 +14,4 @@ class Profile extends Model
     return $this->hasMany(RoleRequest::class, 'user_id', 'user_id');
 }
 
-
-    
 }
