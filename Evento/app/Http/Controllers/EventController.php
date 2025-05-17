@@ -33,7 +33,6 @@ class EventController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        // إنشاء الحدث
         $event = Event::create($validatedData);
 
         return redirect()->route('events.show', $event->id)->with('success', 'تم إنشاء الحدث بنجاح!');
