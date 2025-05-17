@@ -76,17 +76,7 @@
             @enderror
         </div>
 
-        <div class="mb-3">
-            <label for="status" class="form-label">Status</label>
-            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
-                <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="accepted" {{ old('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
-                <option value="rejected" {{ old('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
-            </select>
-            @error('status')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
+        
 
         <div class="mb-3">
             <label for="category_id" class="form-label">Category</label>
