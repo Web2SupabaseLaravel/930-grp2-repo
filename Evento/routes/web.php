@@ -13,7 +13,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/usreinterstsid/create', [UserInterstsIdController::class, 'create'])->name('userinterstsid.create');
 
 Route::resource('datacategories', CategoriesController::class);
 
