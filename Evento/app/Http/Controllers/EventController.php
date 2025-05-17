@@ -37,7 +37,7 @@ class EventController extends Controller
 
         return redirect()->route('events.show', $event->id)->with('success', 'تم إنشاء الحدث بنجاح!');
     }
-
+//fsdfsf
     public function edit($id)
     {
         $event = Event::findOrFail($id);
