@@ -15,9 +15,8 @@ class RoleRequestController extends Controller
 
 public function index()
 {
-    $user = Auth::user(); // المستخدم الحالي
+    $user = Auth::user(); 
 
-    // جلب البروفايل المرتبط
     $profile = $user->profile;
 
     if ($profile && $profile->role === 'Admin') {
@@ -117,10 +116,8 @@ public function update(Request $request, $id)
 
     if ($profile) {
         if ($oldStatus === 'accepted' && $validated['status'] !== 'accepted') {
-            // إذا تم تغيير الحالة من قبول لشيء ثاني، نرجع الرتبة
             $profile->role = 'Attendee';
         } elseif ($validated['status'] === 'accepted') {
-            // إذا الحالة صارت مقبولة، نحدث الرتبة
             $profile->role = $roleRequest->requested_role;
         }
         $profile->save();

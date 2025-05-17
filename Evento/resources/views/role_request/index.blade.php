@@ -194,7 +194,7 @@
         <th>ID</th>
         <th>Requested Role</th>
         <th>Status</th>
-        <th>User ID</th>  <!-- اضفت هذا العمود -->
+        <th>User ID</th>  
         <th>Actions</th>
     </tr>
 </thead>
