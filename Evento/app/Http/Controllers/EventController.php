@@ -28,7 +28,6 @@ class EventController extends Controller
             'price' => 'required|numeric|min:0',
             'number_of_ticket' => 'required|integer|min:1',
             'date' => 'required|date|after_or_equal:today',
-            'status' => 'required|in:pending,accepted,rejected',
             'category_id' => 'required|integer|exists:categories,id',
             'user_id' => 'required|exists:users,id',
         ]);
@@ -37,7 +36,6 @@ class EventController extends Controller
 
         return redirect()->route('events.show', $event->id)->with('success', 'تم إنشاء الحدث بنجاح!');
     }
-//fsdfsf
     public function edit($id)
     {
         $event = Event::findOrFail($id);
@@ -53,7 +51,6 @@ class EventController extends Controller
             'price' => 'required|numeric|min:0',
             'number_of_ticket' => 'required|integer|min:1',
             'date' => 'required|date',
-            'status' => 'required|in:pending,accepted,rejected',
             'category_id' => 'required|integer|exists:categories,id',
             'user_id' => 'nullable|integer|exists:users,id',
             'photo' => 'nullable|string|max:255',
