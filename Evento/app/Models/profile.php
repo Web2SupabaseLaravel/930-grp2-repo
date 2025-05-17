@@ -4,17 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class profile extends Model
+class Profile extends Model
 {
     protected $table = 'profile';
-    protected $fillable = [
-        'user_id', 'role', 'location', 'photo'
-    ];
+        public $timestamps = false; 
 
-    public function user()
+    public function roleRequests()
 {
-    return $this->belongsTo(User::class);
+    return $this->hasMany(RoleRequest::class, 'user_id', 'user_id');
 }
-public $timestamps = false;
 
 }
