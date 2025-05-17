@@ -7,14 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     protected $table = 'profile';
-    protected $fillable = [
-        'user_id', 'role', 'location', 'photo'
-    ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+        public $timestamps = false; 
 
     public function roleRequests()
 {
