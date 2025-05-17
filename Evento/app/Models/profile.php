@@ -13,5 +13,12 @@ class Profile extends Model
 {
     return $this->hasMany(RoleRequest::class, 'user_id', 'user_id');
 }
+   protected $fillable = [
+        'user_id', 'role', 'location', 'photo'
+    ];
 
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }
