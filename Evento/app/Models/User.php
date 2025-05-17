@@ -45,10 +45,10 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
-    }
+public function profile()
+{
+    return $this->hasOne(Profile::class, 'user_id');
+}
 
     public function getJWTIdentifier()
     {
@@ -59,9 +59,6 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-    public function profile()
-{
-    return $this->hasOne(Profile::class, 'user_id');
-}
+
 
 }
