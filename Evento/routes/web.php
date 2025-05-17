@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\EventFeedbackController;
+
+
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RoleRequestController;
@@ -10,7 +14,16 @@ Route::get('/userinterstsid', [UserInterstsIdController::class, 'index'])->name(
 
 Route::put('/rolerequest/{id}', [RoleRequestController::class, 'update'])->name('rolerequest.update');
 
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('feedback', EventFeedbackController::class);
+});
+
+
 Route::resource('rolerequest', RoleRequestController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });
