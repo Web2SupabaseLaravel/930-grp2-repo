@@ -30,7 +30,7 @@
                                         <td class="border px-4 py-2">{{ $ticket->id }}</td>
                                         <td class="border px-4 py-2">{{ $ticket->event->event_name ?? 'غير معروف' }}</td>
                                         <td class="border px-4 py-2">{{ $ticket->user->name ?? 'غير معروف' }}</td>
-                                        <td class="border px-4 py-2">{{ ucfirst($ticket->status) }}</td>
+                                        <td class="border px-4 py-2">{{ $ticket->Status }}</td>
                                         @if(auth()->user()->type === 'Admin')
                                             <td class="border px-4 py-2">
                                                 <a href="{{ route('tickets.edit', $ticket->id) }}" class="text-blue-500 hover:underline">تعديل</a>
