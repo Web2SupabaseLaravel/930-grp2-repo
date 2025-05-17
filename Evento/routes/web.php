@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RoleRequestController;
+use App\Http\Controllers\UserInterstsIdController;
+
+Route::get('/userinterstsid', [UserInterstsIdController::class, 'index'])->name('userinterstsid.index');
+
 Route::put('/rolerequest/{id}', [RoleRequestController::class, 'update'])->name('rolerequest.update');
 
 Route::resource('rolerequest', RoleRequestController::class);
