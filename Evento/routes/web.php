@@ -1,8 +1,14 @@
 <?php
-
+use App\Http\Controllers\EventFeedbackController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('feedback', EventFeedbackController::class);
+});
 
 Route::get('/', function () {
     return view('welcome');
