@@ -15,5 +15,5 @@ class Profile extends Model
 }
 
 
-    public $timestamps = false;
+    
 }
