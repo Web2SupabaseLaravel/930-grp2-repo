@@ -26,9 +26,6 @@ public function index()
         return view('role_request.index');
     }
 }
-
-
-
     /**
      * Show the form for creating a new resource.
      */
