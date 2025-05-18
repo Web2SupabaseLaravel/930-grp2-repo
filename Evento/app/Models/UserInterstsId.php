@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Category;
-
 class UserInterstsId extends Model
 {
+    public $timestamps = false;
     use HasFactory;
 
     // تأكد من اسم الجدول في قاعدة البيانات

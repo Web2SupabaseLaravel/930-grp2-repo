@@ -44,4 +44,5 @@ Route::put('/rolerequest/{id}', [RoleRequestController::class, 'update'])->name(
 //user intrest
 Route::resource('userinterstsid', UserInterstsIdController::class);
 
+
 require __DIR__.'/auth.php';
