@@ -56,8 +56,17 @@ class EventFeedbackController extends Controller
     {
         $request->validate([
             'event_id' => 'required|exists:event,id',
-            'comment' => 'nullable|string',
+            'comment' => 'required|string|min:10|max:500',
             'rating' => 'required|numeric|min:1|max:5',
+        ], [
+            'event_id.required' => 'Please select an event',
+            'event_id.exists' => 'The selected event is invalid',
+            'comment.required' => 'Please provide a comment',
+            'comment.min' => 'Comment must be at least 10 characters long',
+            'comment.max' => 'Comment cannot exceed 500 characters',
+            'rating.required' => 'Please select a rating',
+            'rating.min' => 'Rating must be at least 1 star',
+            'rating.max' => 'Rating cannot exceed 5 stars',
         ]);
 
         $feedback = new EventFeedback();
@@ -67,10 +76,7 @@ class EventFeedbackController extends Controller
         $feedback->rating = $request->rating;
         $feedback->save();
 
-        return redirect('/feedback');
-
-
-        
+        return redirect('/feedback')->with('success', 'Feedback submitted successfully!');
     }
 
     /**
