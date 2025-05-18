@@ -6,6 +6,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RoleRequestController;
 
+use App\Http\Controllers\UserInterstsIdController;
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -36,5 +40,9 @@ Route::middleware(['auth'])->group(function () {
 // Role request routes
 Route::resource('rolerequest', RoleRequestController::class);
 Route::put('/rolerequest/{id}', [RoleRequestController::class, 'update'])->name('rolerequest.update');
+
+//user intrest
+Route::get('/userinterstsid', [UserInterstsIdController::class, 'index'])->name('userinterstsid.index');
+
 
 require __DIR__.'/auth.php';
