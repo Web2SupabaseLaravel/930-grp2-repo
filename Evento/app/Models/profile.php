@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class profile extends Model
 {
     protected $table = 'profile';
         public $timestamps = false; 
