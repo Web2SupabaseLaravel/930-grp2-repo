@@ -4,6 +4,16 @@
 <div class="container mt-5">
     <h2>Add Feedback</h2>
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('feedback.store') }}" method="POST">
         @csrf
 
@@ -23,9 +33,9 @@
         {{-- Comment --}}
         <div class="mb-3">
             <label for="comment" class="form-label">Comment</label>
-            <textarea name="comment" id="comment" class="form-control" rows="3">{{ old('comment') }}</textarea>
+            <textarea name="comment" id="comment" class="form-control @error('comment') is-invalid @enderror" rows="3">{{ old('comment') }}</textarea>
             @error('comment')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
 
