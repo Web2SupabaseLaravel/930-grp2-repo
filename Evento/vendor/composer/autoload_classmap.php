@@ -29,6 +29,7 @@ return array(
     'App\\Models\\Categories' => $baseDir . '/app/Models/Categories.php',
     'App\\Models\\Event' => $baseDir . '/app/Models/Event.php',
     'App\\Models\\EventFeedback' => $baseDir . '/app/Models/EventFeedback.php',
+    'App\\Models\\Profile' => $baseDir . '/app/Models/Profile.php',
     'App\\Models\\RoleRequest' => $baseDir . '/app/Models/RoleRequest.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\UserInterstsId' => $baseDir . '/app/Models/UserInterstsId.php',
