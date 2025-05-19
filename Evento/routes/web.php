@@ -7,7 +7,12 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\RoleRequestController;
 
 use App\Http\Controllers\UserInterstsIdController;
+use App\Http\Controllers\TicketsController;
 
+
+
+
+Route::resource('tickets', TicketsController::class);
 
 
 Route::get('/', function () {
