@@ -19,7 +19,7 @@ public function index()
 
     $profile = $user->profile;
 
-    if ($profile && $profile->role === 'Admin') {
+    if ($profile && $profile->role === 'admin') {
     $roleRequests = RoleRequest::orderBy('id', 'asc')->get();
         return view('role_request.index', compact('roleRequests'));
     } else {
@@ -31,7 +31,7 @@ public function index()
      */
 public function create()
 {
-if (auth()->user()->profile && auth()->user()->profile->role === 'Admin') {
+if (auth()->user()->profile && auth()->user()->profile->role === 'admin') {
 } else {
     abort(403, 'Unauthorized');
 }
@@ -77,7 +77,7 @@ if (auth()->user()->profile && auth()->user()->profile->role === 'Admin') {
      */
 public function edit($id)
 {
-    if (!(auth()->user()->profile && auth()->user()->profile->role === 'Admin')) {
+    if (!(auth()->user()->profile && auth()->user()->profile->role === 'admin')) {
         abort(403, 'Unauthorized');
     }
 
@@ -113,7 +113,7 @@ public function update(Request $request, $id)
 
     if ($profile) {
         if ($oldStatus === 'accepted' && $validated['status'] !== 'accepted') {
-            $profile->role = 'Attendee';
+            $profile->role = 'attendee';
         } elseif ($validated['status'] === 'accepted') {
             $profile->role = $roleRequest->requested_role;
         }
@@ -136,7 +136,7 @@ public function destroy($id)
     if ($roleRequest->status === 'accepted') {
         $profile = Profile::where('user_id', $roleRequest->user_id)->first();
         if ($profile) {
-            $profile->role = 'Attendee';
+            $profile->role = 'attendee';
             $profile->save();
         }
     }
