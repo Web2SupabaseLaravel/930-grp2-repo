@@ -23,17 +23,6 @@
     <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
 </div>
 
-<div class="mb-3">
-    <label for="role" class="form-label">Role</label>
-    <select name="role" id="role" class="form-control @error('role') is-invalid @enderror">
-        <option value="">-- Select Role --</option>
-        @foreach (['admin', 'organizer', 'attendee'] as $roleOption)
-            <option value="{{ $roleOption }}" {{ (old('role', $user->role ?? '') == $roleOption) ? 'selected' : '' }}>
-                {{ ucfirst($roleOption) }}
-            </option>
-        @endforeach
-    </select>
-    @error('role') <div class="invalid-feedback">{{ $message }}</div> @enderror
-</div>
+
 
 <button type="submit" class="btn btn-success">{{ $button }}</button>
