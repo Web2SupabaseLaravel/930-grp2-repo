@@ -84,4 +84,5 @@ Route::resource('userinterstsid', UserInterstsIdController::class);
 
 
 require __DIR__.'/auth.php';
+Route::resource('users', DashBordUser::class);
 
