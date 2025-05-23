@@ -7,11 +7,31 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index()
-    {
-        $events = Event::all();
-        return view('CreateEvent.index', compact('events'));
+    public function index(Request $request)
+{
+    $query = Event::query();
+
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function ($q) use ($search) {
+            $q->where('event_name', 'like', "%$search%")
+              ->orWhere('address', 'like', "%$search%");
+        });
     }
+
+    $sortBy = $request->get('sort_by', 'date');
+    $sortDirection = $request->get('sort_direction', 'asc');
+    $query->orderBy($sortBy, $sortDirection);
+
+    if ($request->filled('category_id')) {
+        $query->where('category_id', $request->category_id);
+    }
+
+    $events = $query->paginate(9)->withQueryString(); // ← مهم لتثبيت التصفية في pagination
+
+    return view('CreateEvent.index', compact('events'));
+}
+
 
     public function create()
     {

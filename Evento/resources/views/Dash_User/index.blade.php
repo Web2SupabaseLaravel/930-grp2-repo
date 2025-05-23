@@ -1,6 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
+<!-- Filters -->
+<form method="GET" action="{{ route('dashboard.user.index') }}" class="row g-3 align-items-center my-4">
+    <div class="col-auto">
+        <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Search name or email">
+    </div>
+
+    <div class="col-auto">
+        <select name="sort_by" class="form-select">
+            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>Sort by ID</option>
+            <option value="name" {{ request('sort_by') == 'name' ? 'selected' : '' }}>Sort by Name</option>
+            <option value="email" {{ request('sort_by') == 'email' ? 'selected' : '' }}>Sort by Email</option>
+        </select>
+    </div>
+
+    <div class="col-auto">
+        <select name="sort_direction" class="form-select">
+            <option value="asc" {{ request('sort_direction') == 'asc' ? 'selected' : '' }}>Ascending</option>
+            <option value="desc" {{ request('sort_direction') == 'desc' ? 'selected' : '' }}>Descending</option>
+        </select>
+    </div>
+
+    {{-- Optional role filter if you have a "role" column --}}
+    {{-- <div class="col-auto">
+        <select name="role" class="form-select">
+            <option value="">All Roles</option>
+            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+            <option value="user" {{ request('role') == 'user' ? 'selected' : '' }}>User</option>
+        </select>
+    </div> --}}
+
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Apply</button>
+        <a href="{{ route('dashboard.user.index') }}" class="btn btn-secondary">Reset</a>
+    </div>
+</form>
+
 <div class="container">
     <h2 class="d-flex justify-content-between align-items-center">
         Dashboard Users

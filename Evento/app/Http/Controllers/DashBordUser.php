@@ -9,14 +9,30 @@ use Illuminate\Support\Facades\Hash;
 
 class DashBordUser extends Controller
 {
-    public function index()
-    {
-        $users = DashB_User::orderBy('id', 'asc')->get();
+    public function index(Request $request)
+{
+    $query = DashB_User::query();
 
-
-        $total_events = Event::count();
-        return view('Dash_User.index', compact('users', 'total_events'));
+    if ($request->has('search') && $request->search != '') {
+        $query->where(function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->search . '%')
+              ->orWhere('email', 'like', '%' . $request->search . '%');
+        });
     }
+
+    if ($request->has('role') && $request->role != '') {
+        $query->where('role', $request->role);
+    }
+
+    $sort_by = $request->get('sort_by', 'id');
+    $sort_direction = $request->get('sort_direction', 'asc');
+    $query->orderBy($sort_by, $sort_direction);
+
+    $users = $query->get();
+    $total_events = Event::count();
+
+    return view('Dash_User.index', compact('users', 'total_events'));
+}
 
     public function create()
     {
