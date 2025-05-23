@@ -559,6 +559,7 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'App\\Models\\Categories' => __DIR__ . '/../..' . '/app/Models/Categories.php',
         'App\\Models\\Event' => __DIR__ . '/../..' . '/app/Models/Event.php',
         'App\\Models\\EventFeedback' => __DIR__ . '/../..' . '/app/Models/EventFeedback.php',
+        'App\\Models\\Profile' => __DIR__ . '/../..' . '/app/Models/Profile.php',
         'App\\Models\\RoleRequest' => __DIR__ . '/../..' . '/app/Models/RoleRequest.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserInterstsId' => __DIR__ . '/../..' . '/app/Models/UserInterstsId.php',

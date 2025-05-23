@@ -185,7 +185,7 @@
         $profile = auth()->user()->profile ?? null;
     @endphp
 
-    @if ($profile && $profile->role === 'Admin')
+    @if ($profile && $profile->role === 'admin')
 
         {{-- جدول الطلبات مع أزرار التعديل والحذف --}}
         <table>
