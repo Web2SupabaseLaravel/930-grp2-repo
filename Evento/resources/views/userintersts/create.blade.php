@@ -2,6 +2,15 @@
 
 @section('content')
 <div class="container mt-5">
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+            <div class="mt-3">
+                <a href="{{ route('home') }}" class="btn btn-success">الانتقال إلى الصفحة الرئيسية</a>
+            </div>
+        </div>
+    @endif
+
     <h2>{{ isset($interest) ? 'Edit record' : 'Add a new registration' }}</h2>
 
     <form action="{{ isset($interest) ? route('userinterstsid.update', $interest->id) : route('userinterstsid.store') }}" method="POST">
@@ -11,9 +20,9 @@
         @endif
 
         <div class="mb-3">
-            <label for="user_id" class="form-label">user:</label>
+            <label for="user_id" class="form-label">:</label>
             <select name="user_id" class="form-control" required>
-                <option value="">-- Select user--</option>
+                <option value="">-- Select a user --</option>
                 @foreach($users as $user)
                     <option value="{{ $user->id }}" {{ (isset($interest) && $interest->user_id == $user->id) ? 'selected' : '' }}>
                         {{ $user->name }}
@@ -25,7 +34,7 @@
         <div class="mb-3">
             <label for="categorie_id" class="form-label">Category:</label>
             <select name="categorie_id" class="form-control" required>
-                <option value="">-- Select Category--</option>
+                <option value="">-- Choose a category --</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}" {{ (isset($interest) && $interest->categorie_id == $category->id) ? 'selected' : '' }}>
                         {{ $category->categories_name }}
@@ -36,6 +45,10 @@
 
         <div class="d-grid gap-2">
             <button type="submit" class="btn btn-primary">{{ isset($interest) ? 'Update' : 'Save' }}</button>
+
+            @if(isset($interest))
+                <a href="{{ route('userinterstsid.show', $interest->id) }}" class="btn btn-info">Show</a>
+            @endif
         </div>
     </form>
 </div>

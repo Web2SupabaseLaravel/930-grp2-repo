@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RoleRequestController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\UserInterstsIdController;
 use App\Http\Controllers\TicketsController;
 
@@ -80,7 +81,14 @@ Route::resource('rolerequest', RoleRequestController::class);
 Route::put('/rolerequest/{id}', [RoleRequestController::class, 'update'])->name('rolerequest.update');
 
 //user intrest
-Route::resource('userinterstsid', UserInterstsIdController::class);
+Route::resource('userintersts', UserInterstsIdController::class);
+
+
+
+
+// categories
+
+Route::resource('datacategories', CategoriesController::class);
 
 
 require __DIR__.'/auth.php';

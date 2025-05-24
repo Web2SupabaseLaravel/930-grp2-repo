@@ -11,24 +11,20 @@ class UserInterstsId extends Model
     public $timestamps = false;
     use HasFactory;
 
-    // تأكد من اسم الجدول في قاعدة البيانات
     protected $table = 'user_intersts_id';
 
-    protected $fillable = ['categorie_id', 'user_id'];
+    protected $fillable = [
 
-    /**
-     * العلاقة مع المستخدم
-     */
+    'categorie_id',
+     'user_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    /**
-     * العلاقة مع الفئة
-     */
     public function category()
     {
-        return $this->belongsTo(Category::class, 'categorie_id');
+        return $this->belongsTo(Categories::class, 'categorie_id');
     }
 }
