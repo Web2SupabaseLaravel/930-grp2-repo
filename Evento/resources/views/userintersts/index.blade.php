@@ -13,15 +13,13 @@
             </div>
 
             <div>
-                <!-- زر التعديل -->
                 <a href="{{ route('userintersts.edit', $category->id) }}" class="btn btn-sm btn-primary me-2">Edit</a>
 
-                <!-- زر الحذف -->
                 <form action="{{ route('userintersts.destroy', $category->id) }}" method="POST" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-sm btn-danger"
-                        onclick="return confirm('هل أنت متأكد من حذف هذا العنصر؟');">
+                        onclick="return confirm('Are you sure you want to delete this item?');">
                         Delete
                     </button>
                 </form>
