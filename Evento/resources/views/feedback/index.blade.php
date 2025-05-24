@@ -19,8 +19,9 @@
             class="form-control" 
             placeholder="Search comments..." 
             value="{{ request('search') }}"
-            style="max-width: 200px;"
+            style="max-width: 200px; border-radius: 10px;"
         >
+
 
         <select name="event_id" class="form-select" style="max-width: 200px;">
             <option value="">All Events</option>
@@ -32,8 +33,11 @@
         </select>
 
         <select name="sort_by" class="form-select" style="max-width: 150px;">
-            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>ID</option>
+            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>Sort by ID</option>
+            <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>Sort by Date</option>
+            <option value="rating" {{ request('sort_by') == 'rating' ? 'selected' : '' }}>Sort by Rating</option>
         </select>
+
 
         <select name="sort_order" class="form-select" style="max-width: 150px;">
             <option value="desc" {{ request('sort_order') == 'desc' ? 'selected' : '' }}>Descending</option>
@@ -41,8 +45,12 @@
         </select>
 
 
-        <button type="submit" class="btn btn-secondary">Apply</button>
-    </form>
+        <button 
+            type="submit" 
+            style="padding: 8px 16px; background-color:rgb(65, 91, 216); color: white; border: none; border-radius: 6px; cursor: pointer;"
+        >
+            Apply
+        </button>    </form>
 
     <table class="table table-bordered">
         <thead>

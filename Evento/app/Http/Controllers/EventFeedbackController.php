@@ -29,7 +29,7 @@ public function index(Request $request)
         $query->where('event_id', $request->event_id);
     }
 
-    $sortBy = $request->get('sort_by', 'id'); 
+    $sortBy = $request->get('sort_by', 'created_at');
     $sortOrder = $request->get('sort_order', 'desc');
     $query->orderBy($sortBy, $sortOrder);
 

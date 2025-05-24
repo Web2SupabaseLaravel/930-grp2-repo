@@ -95,25 +95,25 @@
             border-bottom: none;
         }
 
-        .actions a, .actions button {
-            margin-right: 10px;
-            font-size: 14px;
-            text-decoration: none;
-            color: #3a5afe;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: color 0.25s ease;
-        }
-
-        .actions a:hover, .actions button:hover {
-            color: #1a3ddb;
-            text-decoration: underline;
-        }
-
+        .actions a,
         .actions button {
-            color: #e53935;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color:rgb(255, 217, 0);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-right: 8px;
+        }
+
+        .actions a:hover,
+        .actions button:hover {
+            background-color: #1a3ddb;
         }
 
         form[action*="store"] {
@@ -143,7 +143,7 @@
 
         button[type="submit"] {
             margin-top: 18px;
-            background-color: #3a5afe;
+            background-color:rgb(255, 0, 0);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -180,97 +180,71 @@
         <div class="success">{{ session('success') }}</div>
     @endif
 
-    {{-- تحقق صلاحية الادمن عن طريق profile.role --}}
     @php
         $profile = auth()->user()->profile ?? null;
     @endphp
 
     @if ($profile && $profile->role === 'admin')
 
-        {{-- جدول الطلبات مع أزرار التعديل والحذف --}}
+                <form method="GET" action="{{ route('rolerequest.index') }}" class="filter-form" style="margin-bottom: 20px;">
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                <input type="text" name="search" placeholder="Search role..." value="{{ request('search') }}" style="flex: 1; min-width: 180px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;">
+                <select name="status" style="flex: 1; min-width: 140px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;">
+                    <option value="">All Statuses</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
+                    <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                </select>
+                <select name="sort_by" style="flex: 1; min-width: 140px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;">
+                    <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>Sort by ID</option>
+                    <option value="requested_role" {{ request('sort_by') == 'requested_role' ? 'selected' : '' }}>Sort by Role</option>
+                    <option value="status" {{ request('sort_by') == 'status' ? 'selected' : '' }}>Sort by Status</option>
+                </select>
+                <select name="direction" style="flex: 1; min-width: 100px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;">
+                    <option value="asc" {{ request('direction') == 'asc' ? 'selected' : '' }}>Ascending</option>
+                    <option value="desc" {{ request('direction') == 'desc' ? 'selected' : '' }}>Descending</option>
+                </select>
+                <button type="submit" style="padding: 8px 16px; background-color:#1a3ddb; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                    Apply
+                </button>
+            </div>
+        </form>
+
         <table>
-  <thead>
-    <tr>
-        <th>ID</th>
-        <th>Requested Role</th>
-        <th>Status</th>
-        <th>User ID</th>  
-        <th>Actions</th>
-    </tr>
-</thead>
-
-           <tbody>
-    @forelse ($roleRequests as $item)
-        <tr>
-            <td>{{ $item->id }}</td> 
-            <td>{{ $item->requested_role }}</td>
-            <td>{{ $item->status }}</td>
-            <td>{{ $item->user_id }}</td>
-            <td class="actions">
-                <a href="{{ route('rolerequest.edit', $item->id) }}">Edit</a>
-                <form action="{{ route('rolerequest.destroy', $item->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟');" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-    @empty
-        <tr><td colspan="5" style="text-align:center;">No role requests found.</td></tr>
-    @endforelse
-</tbody>
-        {{-- Filter / Sort / Search Form --}}
-<form method="GET" action="{{ route('rolerequest.index') }}" class="filter-form" style="margin-bottom: 20px;">
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-        <input 
-            type="text" 
-            name="search" 
-            placeholder="Search role..." 
-            value="{{ request('search') }}" 
-            style="flex: 1; min-width: 180px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;"
-        >
-
-        <select 
-            name="status" 
-            style="flex: 1; min-width: 140px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;"
-        >
-            <option value="">All Statuses</option>
-            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-            <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
-            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
-        </select>
-
-        <select 
-            name="sort_by" 
-            style="flex: 1; min-width: 140px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;"
-        >
-            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>Sort by ID</option>
-            <option value="requested_role" {{ request('sort_by') == 'requested_role' ? 'selected' : '' }}>Sort by Role</option>
-            <option value="status" {{ request('sort_by') == 'status' ? 'selected' : '' }}>Sort by Status</option>
-        </select>
-
-        <select 
-            name="direction" 
-            style="flex: 1; min-width: 100px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;"
-        >
-            <option value="asc" {{ request('direction') == 'asc' ? 'selected' : '' }}>ASC</option>
-            <option value="desc" {{ request('direction') == 'desc' ? 'selected' : '' }}>DESC</option>
-        </select>
-
-        <button 
-            type="submit" 
-            style="padding: 8px 16px; background-color: #3a5afe; color: white; border: none; border-radius: 6px; cursor: pointer;"
-        >
-            Apply
-        </button>
-    </div>
-</form>
-
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Requested Role</th>
+                    <th>Status</th>
+                    <th>User ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($roleRequests as $item)
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->requested_role }}</td>
+                        <td>{{ $item->status }}</td>
+                        <td>{{ $item->user_id }}</td>
+                        <td class="actions">
+                            <a href="{{ route('rolerequest.edit', $item->id) }}">Edit</a>
+                            <form action="{{ route('rolerequest.destroy', $item->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟');" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr><td colspan="5" style="text-align:center;">No role requests found.</td></tr>
+                @endforelse
+            </tbody>
         </table>
+
 
     @else
 
-        {{-- نموذج طلب رتبة للمستخدم العادي --}}
         <form action="{{ route('rolerequest.store') }}" method="POST" style="margin-top: 20px;">
             @csrf
             <label for="requested_role">Requested Role:</label>
