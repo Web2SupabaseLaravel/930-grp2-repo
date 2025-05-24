@@ -13,19 +13,37 @@ class RoleRequestController extends Controller
      * Display a listing of the resource.
      */
 
-public function index()
+public function index(Request $request)
 {
     $user = Auth::user(); 
-
     $profile = $user->profile;
 
-    if ($profile && $profile->role === 'admin') {
-    $roleRequests = RoleRequest::orderBy('id', 'asc')->get();
-        return view('role_request.index', compact('roleRequests'));
-    } else {
-        return view('role_request.index');
+    if (!$profile || $profile->role !== 'admin') {
+        return view('role_request.index'); 
     }
+
+    $query = RoleRequest::query();
+
+    if ($request->filled('search')) {
+        $query->where('requested_role', 'like', '%' . $request->search . '%');
+    }
+
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    if ($request->filled('sort_by') && in_array($request->sort_by, ['id', 'requested_role', 'status'])) {
+        $direction = $request->get('direction', 'asc');
+        $query->orderBy($request->sort_by, $direction);
+    } else {
+        $query->orderBy('id', 'asc');
+    }
+
+    $roleRequests = $query->get();
+
+    return view('role_request.index', compact('roleRequests'));
 }
+
     /**
      * Show the form for creating a new resource.
      */

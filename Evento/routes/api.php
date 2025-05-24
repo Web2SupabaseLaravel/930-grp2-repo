@@ -10,11 +10,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ApiControllers\EventFeedbackApiController;
+use App\Http\Controllers\ApiControllers\RoleRequestApiController;
 
 Route::middleware('jwt')->group(function () {
     Route::resource('feedback', EventFeedbackApiController::class);
 });
-
+Route::middleware('jwt')->group(function () {
+    Route::resource('rolerequest', RoleRequestApiController::class);
+});
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
