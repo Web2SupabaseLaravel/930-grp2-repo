@@ -10,6 +10,40 @@
 
     <a href="{{ route('feedback.create') }}" class="btn btn-primary mb-3">Add Feedback</a>
 
+    {{-- نموذج البحث + الفلاتر + الفرز --}}
+    <form method="GET" action="{{ route('feedback.index') }}" class="mb-4 d-flex gap-2 flex-wrap align-items-center">
+
+        <input 
+            type="text" 
+            name="search" 
+            class="form-control" 
+            placeholder="Search comments..." 
+            value="{{ request('search') }}"
+            style="max-width: 200px;"
+        >
+
+        <select name="event_id" class="form-select" style="max-width: 200px;">
+            <option value="">All Events</option>
+            @foreach($events as $event)
+                <option value="{{ $event->id }}" {{ request('event_id') == $event->id ? 'selected' : '' }}>
+                    {{ $event->event_name }}
+                </option>
+            @endforeach
+        </select>
+
+        <select name="sort_by" class="form-select" style="max-width: 150px;">
+            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>ID</option>
+        </select>
+
+        <select name="sort_order" class="form-select" style="max-width: 150px;">
+            <option value="desc" {{ request('sort_order') == 'desc' ? 'selected' : '' }}>Descending</option>
+            <option value="asc" {{ request('sort_order') == 'asc' ? 'selected' : '' }}>Ascending</option>
+        </select>
+
+
+        <button type="submit" class="btn btn-secondary">Apply</button>
+    </form>
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -18,7 +52,7 @@
                 <th>User</th>
                 <th>Comment</th>
                 <th>Rating</th>
-                <th>Actions</th> <!-- حذفنا عمود Created At -->
+                <th>Actions</th> 
             </tr>
         </thead>
         <tbody>
@@ -41,5 +75,9 @@
             @endforeach
         </tbody>
     </table>
+
+    {{-- روابط التصفح لو استخدمت paginate --}}
+    {{ $feedbacks->links() }}
+
 </div>
 @endsection
