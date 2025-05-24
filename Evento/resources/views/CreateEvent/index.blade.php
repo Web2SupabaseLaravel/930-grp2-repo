@@ -4,6 +4,32 @@
 <div class="container">
     <h2>All Events</h2>
 
+    <!-- 🔍 Filter/Search/Sort Form -->
+    <form method="GET" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <input type="text" name="search" class="form-control" placeholder="Search by name or address" value="{{ request('search') }}">
+        </div>
+        <div class="col-md-3">
+            <select name="sort_by" class="form-select">
+                <option value="date" {{ request('sort_by') == 'date' ? 'selected' : '' }}>Sort by Date</option>
+                <option value="price" {{ request('sort_by') == 'price' ? 'selected' : '' }}>Sort by Price</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="sort_direction" class="form-select">
+                <option value="asc" {{ request('sort_direction') == 'asc' ? 'selected' : '' }}>ASC</option>
+                <option value="desc" {{ request('sort_direction') == 'desc' ? 'selected' : '' }}>DESC</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="number" name="category_id" class="form-control" placeholder="Category ID" value="{{ request('category_id') }}">
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary w-100">Go</button>
+        </div>
+    </form>
+
+    <!-- ✅ Display Events -->
     @if(count($events) > 0)
         <div class="row">
             @foreach($events as $event)

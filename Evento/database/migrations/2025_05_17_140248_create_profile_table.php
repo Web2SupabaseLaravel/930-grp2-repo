@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('profile', function (Blueprint $table) {
             $table->id();
             $table->timestamps('created_at');
-            $table->enum('role', ['Admin', 'Organizer','Attendee']);
+            $table->enum('role', ['admin', 'organizer','attendee']);
             $table->string('location');
             $table->string('photo');
             $table->foreignId('user_id');

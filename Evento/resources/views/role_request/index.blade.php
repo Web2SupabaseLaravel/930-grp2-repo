@@ -185,7 +185,7 @@
         $profile = auth()->user()->profile ?? null;
     @endphp
 
-    @if ($profile && $profile->role === 'Admin')
+    @if ($profile && $profile->role === 'admin')
 
         {{-- جدول الطلبات مع أزرار التعديل والحذف --}}
         <table>
@@ -219,6 +219,52 @@
         <tr><td colspan="5" style="text-align:center;">No role requests found.</td></tr>
     @endforelse
 </tbody>
+        {{-- Filter / Sort / Search Form --}}
+<form method="GET" action="{{ route('rolerequest.index') }}" class="filter-form" style="margin-bottom: 20px;">
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+        <input 
+            type="text" 
+            name="search" 
+            placeholder="Search role..." 
+            value="{{ request('search') }}" 
+            style="flex: 1; min-width: 180px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;"
+        >
+
+        <select 
+            name="status" 
+            style="flex: 1; min-width: 140px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;"
+        >
+            <option value="">All Statuses</option>
+            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+            <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
+            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+        </select>
+
+        <select 
+            name="sort_by" 
+            style="flex: 1; min-width: 140px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;"
+        >
+            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>Sort by ID</option>
+            <option value="requested_role" {{ request('sort_by') == 'requested_role' ? 'selected' : '' }}>Sort by Role</option>
+            <option value="status" {{ request('sort_by') == 'status' ? 'selected' : '' }}>Sort by Status</option>
+        </select>
+
+        <select 
+            name="direction" 
+            style="flex: 1; min-width: 100px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px;"
+        >
+            <option value="asc" {{ request('direction') == 'asc' ? 'selected' : '' }}>ASC</option>
+            <option value="desc" {{ request('direction') == 'desc' ? 'selected' : '' }}>DESC</option>
+        </select>
+
+        <button 
+            type="submit" 
+            style="padding: 8px 16px; background-color: #3a5afe; color: white; border: none; border-radius: 6px; cursor: pointer;"
+        >
+            Apply
+        </button>
+    </div>
+</form>
 
         </table>
 

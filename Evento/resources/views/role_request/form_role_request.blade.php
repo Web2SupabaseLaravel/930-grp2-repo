@@ -71,9 +71,9 @@
         {{-- تعديل الحالة --}}
         <label>Status</label>
         <select name="status" required>
-            <option value="pending" {{ (isset($roleRequest) && $roleRequest->status == 'pending') ? 'selected' : '' }}>Pending</option>
-            <option value="accepted" {{ (isset($roleRequest) && $roleRequest->status == 'accepted') ? 'selected' : '' }}>Accepted</option>
-            <option value="rejected" {{ (isset($roleRequest) && $roleRequest->status == 'rejected') ? 'selected' : '' }}>Rejected</option>
+            <option value="pending" {{ (isset($roleRequest) && $roleRequest->status == 'pending') ? 'selected' : '' }}>pending</option>
+            <option value="accepted" {{ (isset($roleRequest) && $roleRequest->status == 'accepted') ? 'selected' : '' }}>accepted</option>
+            <option value="rejected" {{ (isset($roleRequest) && $roleRequest->status == 'rejected') ? 'selected' : '' }}>rejected</option>
         </select>
 
         <button type="submit">{{ $submitButton }}</button>
