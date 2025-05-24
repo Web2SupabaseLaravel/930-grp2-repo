@@ -17,30 +17,24 @@ public function index(Request $request)
     $user = auth()->user();
     $query = EventFeedback::with(['event', 'user']);
 
-    // ✅ فلترة حسب المستخدم إذا لم يكن Admin
     if (!($user->profile && strtolower($user->profile->role) === 'admin')) {
         $query->where('user_id', $user->id);
     }
 
-    // ✅ بحث بالكومنت
     if ($request->filled('search')) {
         $query->where('comment', 'LIKE', '%' . $request->search . '%');
     }
 
-    // ✅ تصفية حسب الحدث
     if ($request->filled('event_id')) {
         $query->where('event_id', $request->event_id);
     }
 
-    // ✅ فرز
     $sortBy = $request->get('sort_by', 'id'); 
     $sortOrder = $request->get('sort_order', 'desc');
     $query->orderBy($sortBy, $sortOrder);
 
-    // ✅ نتائج مع pagination
     $feedbacks = $query->paginate(10)->withQueryString();
 
-    // ✅ جلب قائمة الأحداث للفلتر
     $events = Event::all();
 
     return view('feedback.index', compact('feedbacks', 'events'));
