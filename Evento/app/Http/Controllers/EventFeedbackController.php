@@ -12,26 +12,34 @@ class EventFeedbackController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //$feedbacks = \App\Models\EventFeedback::with('event', 'user')->get(); // لو بدك تعرض أسماء الأحداث والمستخدمين
-        //return view('feedback.index', compact('feedbacks'));
+public function index(Request $request)
+{
+    $user = auth()->user();
+    $query = EventFeedback::with(['event', 'user']);
 
-        $user = auth()->user();
-
-        // Check if user has a profile and is an admin
-        if ($user->profile && strtolower($user->profile->role) === 'admin') {
-            $feedbacks = EventFeedback::with(['event', 'user'])->get();
-        } else {
-            // إذا مش Admin → رجّع بس اللي كتبهم المستخدم
-            $feedbacks = EventFeedback::with(['event', 'user'])
-                            ->where('user_id', $user->id)
-                            ->get();
-        }
-    
-        return view('feedback.index', compact('feedbacks'));
-
+    if (!($user->profile && strtolower($user->profile->role) === 'admin')) {
+        $query->where('user_id', $user->id);
     }
+
+    if ($request->filled('search')) {
+        $query->where('comment', 'LIKE', '%' . $request->search . '%');
+    }
+
+    if ($request->filled('event_id')) {
+        $query->where('event_id', $request->event_id);
+    }
+
+    $sortBy = $request->get('sort_by', 'id'); 
+    $sortOrder = $request->get('sort_order', 'desc');
+    $query->orderBy($sortBy, $sortOrder);
+
+    $feedbacks = $query->paginate(10)->withQueryString();
+
+    $events = Event::all();
+
+    return view('feedback.index', compact('feedbacks', 'events'));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,7 +47,7 @@ class EventFeedbackController extends Controller
     public function create()
     {
         $data['feedback'] = new EventFeedback();
-        $data['events'] = Event::all(); // لو بدك المستخدم يختار الفعالية من قائمة
+        $data['events'] = Event::all(); 
         $data['route'] = 'feedback.store';
         $data['method'] = 'post';
         $data['titleForm'] = 'Form Input Feedback';
