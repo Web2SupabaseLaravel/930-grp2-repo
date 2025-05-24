@@ -45,3 +45,7 @@ Route::middleware('jwt')->group(function () {
     Route::get('user', [JWTAuthController::class, 'getUser']);
     Route::post('logout', [JWTAuthController::class, 'logout']);
 });
+
+
+Route::resource('userintersts', UserInterstsIdController::class);
+
