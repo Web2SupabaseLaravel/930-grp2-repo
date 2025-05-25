@@ -34,24 +34,13 @@ During development, send requests to the Laravel server (http://localhost:8000/)
 
 ######
 
-
-## Authentication:
-$
-[200](images/200.png)
-[201](images/201.png)
-[401](images/401.png)
-[404](images/404.png)
-[422](images/422.png)
-$
-######
-
 ## Available Resources
 
-[Profile](profile.md)
-[Categories](categories.md)
-[Event](event.md)
-[Reviews](reviews.md)
-[Role-Request](role_request.md)
-[Tickets](tickets.md)
-[Users](users.md)
-[User-Intersts-Id](user_intersts_id.md)
+[Profile](/Evento/api-docs/profile.md)
+[Categories](/Evento/api-docs/categories.md)
+[Event](/Evento/api-docs/event.md)
+[Reviews](/Evento/api-docs/reviews.md)
+[Role-Request](/Evento/api-docs/role_request.md)
+[Tickets]()
+[Users](/Evento/api-docs/users.md)
+[User-Intersts-Id](/Evento/api-docs/user_intersts_id.md)
