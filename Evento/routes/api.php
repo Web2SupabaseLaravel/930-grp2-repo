@@ -15,9 +15,8 @@ use App\Http\Controllers\ApiControllers\RoleRequestApiController;
 use App\Http\Controllers\ApiControllers\UserInterstsIdApiController;
 use App\Http\Controllers\ApiControllers\CategoriesApiController;
 
-Route::middleware('jwt')->group(function () {
-    Route::resource('feedback', EventFeedbackApiController::class);
-});
+Route::resource('feedback', EventFeedbackApiController::class);
+
 Route::middleware('jwt')->group(function () {
     Route::resource('rolerequest', RoleRequestApiController::class);
 });

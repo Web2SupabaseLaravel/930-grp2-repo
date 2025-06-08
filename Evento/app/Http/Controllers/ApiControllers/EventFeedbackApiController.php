@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\ApiControllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\EventFeedback;
 use App\Models\Event;
 
@@ -15,44 +14,8 @@ class EventFeedbackApiController extends Controller
     public function index()
     {
         try {
-            $user = auth()->user();
-            
-            if (!$user) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Unauthorized. Please login first.',
-                    'debug' => [
-                        'auth_check' => auth()->check(),
-                        'auth_id' => auth()->id(),
-                        'session_id' => session()->getId()
-                    ]
-                ], 401);
-            }
-
-            $feedbacks = [];
-            
-            try {
-                // If user has no profile or is not admin, show only their feedbacks
-                if (!$user->profile || strtolower($user->profile->role) !== 'admin') {
-                    $feedbacks = EventFeedback::with(['event', 'user'])
-                                    ->where('user_id', $user->id)
-                                    ->get();
-                } else {
-                    // Admin can see all feedbacks
-                    $feedbacks = EventFeedback::with(['event', 'user'])->get();
-                }
-            } catch (\Exception $e) {
-                \Log::error('Error fetching feedbacks: ' . $e->getMessage());
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Error fetching feedbacks',
-                    'debug' => [
-                        'error' => $e->getMessage(),
-                        'line' => $e->getLine(),
-                        'file' => $e->getFile()
-                    ]
-                ], 500);
-            }
+            // بدون تحقق من المستخدم
+            $feedbacks = EventFeedback::with(['event', 'user'])->get();
 
             return response()->json([
                 'status' => 'success',
@@ -109,12 +72,11 @@ class EventFeedbackApiController extends Controller
 
         $feedback = new EventFeedback();
         $feedback->event_id = $request->event_id;
-        $feedback->user_id = Auth::id();
+        // هنا ما في user_id لأن مافيش تسجيل دخول
         $feedback->comment = $request->comment;
         $feedback->rating = $request->rating;
         $feedback->save();
 
-        //return redirect('/feedback')->with('success', 'Feedback submitted successfully!');
         return response()->json([
             'status' => 'success',
             'message' => 'Feedback submitted successfully!',
@@ -123,20 +85,12 @@ class EventFeedbackApiController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $feedback = \App\Models\EventFeedback::findOrFail($id);
-        $events = \App\Models\Event::all();
+        $feedback = EventFeedback::findOrFail($id);
+        $events = Event::all();
         return response()->json([
             'status' => 'success',
             'data' => [
@@ -157,7 +111,7 @@ class EventFeedbackApiController extends Controller
             'rating' => 'required|numeric|min:1|max:5',
         ]);
 
-        $feedback = \App\Models\EventFeedback::findOrFail($id);
+        $feedback = EventFeedback::findOrFail($id);
         $feedback->event_id = $request->event_id;
         $feedback->comment = $request->comment;
         $feedback->rating = $request->rating;

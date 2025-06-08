@@ -30,6 +30,7 @@ return array(
     'App\\Http\\Controllers\\RoleRequestController' => $baseDir . '/app/Http/Controllers/RoleRequestController.php',
     'App\\Http\\Controllers\\TicketsController' => $baseDir . '/app/Http/Controllers/TicketsController.php',
     'App\\Http\\Controllers\\UserInterstsIdController' => $baseDir . '/app/Http/Controllers/UserInterstsIdController.php',
+    'App\\Http\\Middleware\\Cors' => $baseDir . '/app/Http/Middleware/Cors.php',
     'App\\Http\\Middleware\\JwtMiddleware' => $baseDir . '/app/Http/Middleware/JwtMiddleware.php',
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
     'App\\Http\\Requests\\ProfileUpdateRequest' => $baseDir . '/app/Http/Requests/ProfileUpdateRequest.php',

@@ -1,0 +1,188 @@
+/* ====== Global Styles ====== */
+body {
+    margin: 0;
+    min-height: 100vh;
+    width: 100%;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #213547;
+    background-color: #ffffff;
+  }
+  
+  /* ====== Navbar ====== */
+  .navbar {
+    background-color: #EEE2DC !important;
+  }
+  
+  .nav-link {
+    color: #68263D !important;
+    font-weight: 500;
+    transition: color 0.3s ease !important;
+  }
+  
+  .nav-link:hover {
+    color: #3A1522 !important;
+  }
+  
+  /* ====== Review Card ====== */
+  .review-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #EEE2DC !important;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    color: #68263D;
+  }
+  
+  .review-card h5 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  
+  .review-card .fa-star {
+    margin-right: 0.25rem;
+  }
+  
+  .review-card .text-muted {
+    color: #555 !important;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  
+  .review-card .author-circle {
+    width: 35px;
+    height: 35px;
+    background-color: #68263D;
+    color: #EEE2DC;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5rem;
+  }
+  
+  .review-card .author-name {
+    color: #68263D;
+    font-weight: 500;
+  }
+  
+  /* لضبط توزيع محتويات الكارد */
+  .review-card > .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* ====== Profile Icon ====== */
+  .profile-icon {
+    font-size: 1.5rem;
+  }
+  
+  /* ====== Hero Section ====== */
+  .hero-section {
+    background: linear-gradient(to right, #9E697B 17%, #68263D 89%);
+    min-height: 500px;
+    padding: 60px 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .hero-content h1 {
+    font-size: 60px;
+    font-weight: 300;
+    margin-bottom: 30px;
+    line-height: 1.2;
+  }
+  
+  .hero-content p {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 35px;
+  }
+  
+  /* ====== Buttons ====== */
+  .btn-custom {
+    background-color: #EEE2DC !important;
+    color: #68263D !important;
+    border: none !important;
+    padding: 10px 30px !important;
+    font-size: 15px !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .btn-custom:hover {
+    background-color: #68263D !important;
+    color: #EEE2DC !important;
+  }
+  
+  /* ====== About Box ====== */
+  .about-box {
+    background-color: #EEE2DC;
+    border-radius: 12px;
+    padding: 30px;
+  }
+  
+  .about-icon {
+    font-size: 2.5rem;
+    color: #0D6EFD;
+    margin-right: 20px;
+  }
+  
+  .about-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .about-description {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 5;
+    margin: 0;
+  }
+  
+  /* ====== Event Card ====== */
+  .event-card {
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #ffffff;
+  }
+  
+  .event-image {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  /* ====== Footer ====== */
+  .footer-email {
+    color: #EEE2DC;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+  }
+  
+  .footer-email:hover {
+    opacity: 0.9;
+  }
+  
+  /* ====== Responsive Dark/Light Mode ====== */
+  @media (prefers-color-scheme: light) {
+    body {
+      color: #213547;
+      background-color: #ffffff;
+    }
+  }
+  
