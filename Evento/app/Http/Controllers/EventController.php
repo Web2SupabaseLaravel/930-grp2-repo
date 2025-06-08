@@ -49,7 +49,7 @@ class EventController extends Controller
             'number_of_ticket' => 'required|integer|min:1',
             'date' => 'required|date|after_or_equal:today',
             'category_id' => 'required|integer|exists:categories,id',
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'nullable|exists:users,id',
         ]);
 
         $event = Event::create($validatedData);
