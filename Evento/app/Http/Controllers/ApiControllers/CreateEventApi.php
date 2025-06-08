@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
-class EventController extends Controller
+class EventControllerApi extends Controller
 {
     public function index(Request $request)
     {

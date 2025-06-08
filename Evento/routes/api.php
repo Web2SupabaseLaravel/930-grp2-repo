@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ApiControllers\EventFeedbackApiController;
 use App\Http\Controllers\ApiControllers\RoleRequestApiController;
+
 use App\Http\Controllers\ApiControllers\UserInterstsIdApiController;
 use App\Http\Controllers\ApiControllers\CategoriesApiController;
 
@@ -57,6 +58,7 @@ Route::middleware('jwt')->group(function () {
     Route::get('user', [JWTAuthController::class, 'getUser']);
     Route::post('logout', [JWTAuthController::class, 'logout']);
 });
+
 
 
 Route::resource('userintersts', UserInterstsIdApiController::class);
