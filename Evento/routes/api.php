@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ApiControllers\EventFeedbackApiController;
 use App\Http\Controllers\ApiControllers\RoleRequestApiController;
-use App\Http\Controllers\UserInterstsIdController;
+
+use App\Http\Controllers\ApiControllers\UserInterstsIdApiController;
+use App\Http\Controllers\ApiControllers\CategoriesApiController;
 
 Route::middleware('jwt')->group(function () {
     Route::resource('feedback', EventFeedbackApiController::class);
@@ -58,5 +60,7 @@ Route::middleware('jwt')->group(function () {
 });
 
 
-Route::resource('userintersts',UserInterstsIdController::class);
+
+Route::resource('userintersts', UserInterstsIdApiController::class);
+Route::resource('datacategories', CategoriesApiController::class);
 
