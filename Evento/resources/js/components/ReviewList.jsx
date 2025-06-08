@@ -30,7 +30,15 @@ const ReviewList = () => {
   }, []);
 
   const renderStars = (rating) => {
-    return '⭐'.repeat(rating);
+    return (
+      <div className="stars-container">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span key={star} className={`star ${star <= rating ? 'filled' : 'empty'}`}>
+            ★
+          </span>
+        ))}
+      </div>
+    );
   };
 
   if (loading) return (
@@ -55,7 +63,7 @@ const ReviewList = () => {
           <div key={index} className="review-card">
             <div className="review-header">
               <h3>{review.title}</h3>
-              <div className="rating">{renderStars(review.rating)}</div>
+              {renderStars(review.rating)}
             </div>
             <p className="review-content">{review.review}</p>
             <div className="review-footer">

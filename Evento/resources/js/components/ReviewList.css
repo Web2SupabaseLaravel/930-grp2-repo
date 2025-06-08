@@ -62,10 +62,27 @@
   font-weight: 600;
 }
 
-.rating {
-  font-size: 1.2rem;
-  color: #ffd700;
-  letter-spacing: 2px;
+.stars-container {
+  display: flex;
+  gap: 4px;
+}
+
+.star {
+  font-size: 24px;
+  cursor: default;
+  transition: color 0.2s ease;
+  position: relative;
+  display: inline-block;
+  -webkit-text-stroke: 1px #68263D;
+}
+
+.star.filled {
+  color: #68263D;
+  text-shadow: 2px 2px 4px rgba(104, 38, 61, 0.2);
+}
+
+.star.empty {
+  color: #ffffff;
 }
 
 .review-content {
@@ -146,5 +163,9 @@
 
   .review-card {
     padding: 20px;
+  }
+
+  .star {
+    font-size: 20px;
   }
 } 
