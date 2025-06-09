@@ -8,17 +8,21 @@ class RoleRequest extends Model
 {
     protected $table = 'role_request';
 
-public $timestamps = false;
+    public $timestamps = false;
 
-protected $fillable = [
-    'requested_role',
-    'user_id',
-    'status',
-];
-public function profile()
-{
-    return $this->belongsTo(Profile::class, 'user_id', 'user_id');
-}
+    protected $fillable = [
+        'requested_role',
+        'user_id',
+        'status',
+    ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class, 'user_id', 'user_id');
+    }
 }
