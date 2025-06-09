@@ -7,6 +7,7 @@ use App\Http\Controllers\JWTAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ApiControllers\EventFeedbackApiController;
 use App\Http\Controllers\ApiControllers\RoleRequestApiController;
+
 use App\Http\Controllers\ApiControllers\UserInterstsIdApiController;
 use App\Http\Controllers\ApiControllers\CategoriesApiController;
 use Illuminate\Http\Request;
@@ -30,6 +31,10 @@ Route::get('/events', [CreateEventApi::class, 'index']);
 Route::put('/events/{id}', [CreateEventApi::class, 'update']);
 
 Route::resource('api/role-requests', RoleRequestApiController::class);
+
+
+Route::resource('userintersts', UserInterstsIdApiController::class);
+Route::resource('datacategories', CategoriesApiController::class);
 
 
 Route::get('/role-requests', [RoleRequestApiController::class, 'index']);

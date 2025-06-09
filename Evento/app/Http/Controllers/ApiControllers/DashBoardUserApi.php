@@ -7,7 +7,7 @@ use App\Models\DashB_User;
 use App\Models\Event;
 use Illuminate\Support\Facades\Hash;
 
-class DashBordUser extends Controller
+class DashBordUserApi extends Controller
 {
     public function index(Request $request)
     {
