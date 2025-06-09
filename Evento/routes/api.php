@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashBordUser;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\JWTAuthController;
+use App\Http\Controllers\ApiControllers\CreateEventApi;
 
 use Illuminate\Http\Request;
 
@@ -38,7 +39,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('events', EventController::class);
+Route::resource('events', CreateEventApi::class);
 Route::resource('Dash_User', DashBordUser::class);
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
