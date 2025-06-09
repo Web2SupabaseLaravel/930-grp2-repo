@@ -7,7 +7,7 @@ function CreateUserForm({ onClose, onSave }) {
     name: '',
     email: '',
     password: '',
-    password_confirmation: '', // Changed to match UserManagement
+    password_confirmation: '',
     role: 'Attendee'
   });
   const [passwordError, setPasswordError] = useState('');
@@ -34,10 +34,10 @@ function CreateUserForm({ onClose, onSave }) {
     }
 
     try {
-      const { confirmPassword, ...dataToSave } = userData; // Exclude confirmPassword
+      const { confirmPassword, ...dataToSave } = userData;
       const response = await userService.createUser(dataToSave);
       if (response.success) {
-        onSave(dataToSave); // Call onSave for Dashboard to update state
+        onSave(dataToSave); 
         alert('User created successfully');
         onClose();
       } else {
