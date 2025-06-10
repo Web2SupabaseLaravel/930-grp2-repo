@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Http\\Controllers\\ApiControllers\\CategoriesApiController' => $baseDir . '/app/Http/Controllers/ApiControllers/CategoriesApiController.php',
     'App\\Http\\Controllers\\ApiControllers\\Controller' => $baseDir . '/app/Http/Controllers/ApiControllers/Controller.php',
+    'App\\Http\\Controllers\\ApiControllers\\CreateEventApi' => $baseDir . '/app/Http/Controllers/ApiControllers/CreateEventApi.php',
     'App\\Http\\Controllers\\ApiControllers\\EventFeedbackApiController' => $baseDir . '/app/Http/Controllers/ApiControllers/EventFeedbackApiController.php',
     'App\\Http\\Controllers\\ApiControllers\\RoleRequestApiController' => $baseDir . '/app/Http/Controllers/ApiControllers/RoleRequestApiController.php',
     'App\\Http\\Controllers\\ApiControllers\\UserInterstsIdApiController' => $baseDir . '/app/Http/Controllers/ApiControllers/UserInterstsIdApiController.php',
@@ -30,6 +31,7 @@ return array(
     'App\\Http\\Controllers\\RoleRequestController' => $baseDir . '/app/Http/Controllers/RoleRequestController.php',
     'App\\Http\\Controllers\\TicketsController' => $baseDir . '/app/Http/Controllers/TicketsController.php',
     'App\\Http\\Controllers\\UserInterstsIdController' => $baseDir . '/app/Http/Controllers/UserInterstsIdController.php',
+    'App\\Http\\Middleware\\Cors' => $baseDir . '/app/Http/Middleware/Cors.php',
     'App\\Http\\Middleware\\JwtMiddleware' => $baseDir . '/app/Http/Middleware/JwtMiddleware.php',
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
     'App\\Http\\Requests\\ProfileUpdateRequest' => $baseDir . '/app/Http/Requests/ProfileUpdateRequest.php',

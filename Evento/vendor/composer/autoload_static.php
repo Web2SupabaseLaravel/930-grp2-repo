@@ -548,6 +548,7 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
     public static $classMap = array (
         'App\\Http\\Controllers\\ApiControllers\\CategoriesApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/CategoriesApiController.php',
         'App\\Http\\Controllers\\ApiControllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/Controller.php',
+        'App\\Http\\Controllers\\ApiControllers\\CreateEventApi' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/CreateEventApi.php',
         'App\\Http\\Controllers\\ApiControllers\\EventFeedbackApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/EventFeedbackApiController.php',
         'App\\Http\\Controllers\\ApiControllers\\RoleRequestApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/RoleRequestApiController.php',
         'App\\Http\\Controllers\\ApiControllers\\UserInterstsIdApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/UserInterstsIdApiController.php',
@@ -570,6 +571,7 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'App\\Http\\Controllers\\RoleRequestController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleRequestController.php',
         'App\\Http\\Controllers\\TicketsController' => __DIR__ . '/../..' . '/app/Http/Controllers/TicketsController.php',
         'App\\Http\\Controllers\\UserInterstsIdController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserInterstsIdController.php',
+        'App\\Http\\Middleware\\Cors' => __DIR__ . '/../..' . '/app/Http/Middleware/Cors.php',
         'App\\Http\\Middleware\\JwtMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/JwtMiddleware.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',

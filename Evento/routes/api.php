@@ -13,6 +13,13 @@ use App\Http\Controllers\ApiControllers\CategoriesApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+Route::middleware('auth:api')->get('/user/profile', function (Request $request) {
+    return $request->user();
+});
+
+
+
 Route::prefix('api')->middleware('jwt')->group(function () {
     Route::resource('events', CreateEventApi::class);
     Route::resource('feedback', EventFeedbackApiController::class);
