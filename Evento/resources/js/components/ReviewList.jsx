@@ -66,7 +66,6 @@ const ReviewList = () => {
     setError(null);
 
     if (editingReviewIndex !== null) {
-      // تعديل
       axios.put(`http://127.0.0.1:8000/api/feedback/${newReview.id}`, newReview)
         .then(res => {
           if (res.data.status === 'success') {
@@ -95,7 +94,6 @@ const ReviewList = () => {
         })
         .finally(() => setSubmitting(false));
     } else {
-      // إضافة جديدة
       axios.post('http://127.0.0.1:8000/api/feedback', newReview)
         .then(res => {
           if (res.data.status === 'success') {
