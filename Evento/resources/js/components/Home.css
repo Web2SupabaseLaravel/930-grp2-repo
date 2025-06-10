@@ -19,10 +19,26 @@ body {
     color: #68263D !important;
     font-weight: 500;
     transition: color 0.3s ease !important;
+    white-space: nowrap;
   }
   
   .nav-link:hover {
     color: #3A1522 !important;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar .container {
+      flex-wrap: nowrap;
+    }
+    
+    .navbar .nav {
+      gap: 10px;
+    }
+    
+    .nav-link {
+      font-size: 0.9rem;
+      padding: 0.5rem 0.75rem !important;
+    }
   }
   
   /* ====== Review Card ====== */
