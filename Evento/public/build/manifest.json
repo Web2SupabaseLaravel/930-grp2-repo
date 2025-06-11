@@ -1,13 +1,54 @@
 {
-  "resources/js/app.js": {
-    "file": "assets/app-CQ_MWqE3.js",
-    "name": "app",
-    "src": "resources/js/app.js",
+  "resources/css/app.css": {
+    "file": "assets/app-ft9kJCDW.css",
+    "src": "resources/css/app.css",
+  "resources/css/app.css": {
+    "file": "assets/app-k_kGWvnE.css",
+    "src": "resources/css/app.css",
     "isEntry": true
   },
-  "resources/sass/app.scss": {
-    "file": "assets/app-B_jciIra.css",
-    "src": "resources/sass/app.scss",
-    "isEntry": true
+  "resources/js/app.jsx": {
+    "file": "assets/app-DYssOxpu.js",
+    "name": "app",
+    "src": "resources/js/app.jsx",
+    "isEntry": true,
+    "css": [
+      "assets/app-9I1vmFEw.css"
+    ]
+  "resources/js/app.jsx": {
+    "file": "assets/app-DInw1_xh.js",
+    "name": "app",
+    "src": "resources/js/app.jsx",
+    "isEntry": true,
+    "css": [
+      "assets/app-sJtS5wPI.css"
+    ],
+    "assets": [
+      "assets/Evento-D45e2m1N.png",
+      "assets/food-C3nzdIKu.png",
+      "assets/music-ChVCE3St.png",
+      "assets/teacher-DWbkngRW.png",
+      "assets/soccer-CCAM7ijr.png"
+    ]
+  },
+  "resources/js/assets/Evento.png": {
+    "file": "assets/Evento-D45e2m1N.png",
+    "src": "resources/js/assets/Evento.png"
+  },
+  "resources/js/assets/food.png": {
+    "file": "assets/food-C3nzdIKu.png",
+    "src": "resources/js/assets/food.png"
+  },
+  "resources/js/assets/music.png": {
+    "file": "assets/music-ChVCE3St.png",
+    "src": "resources/js/assets/music.png"
+  },
+  "resources/js/assets/soccer.png": {
+    "file": "assets/soccer-CCAM7ijr.png",
+    "src": "resources/js/assets/soccer.png"
+  },
+  "resources/js/assets/teacher.png": {
+    "file": "assets/teacher-DWbkngRW.png",
+    "src": "resources/js/assets/teacher.png"
   }
 }

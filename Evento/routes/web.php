@@ -11,6 +11,11 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\UserInterstsIdController;
 use App\Http\Controllers\TicketsController;
 
+
+Route::get('/{any}', function () {
+    return view('app');  // صفحة الـ blade اللي فيها div#app وتشغل React
+})->where('any', '.*');
+
 Route::resource('tickets', TicketsController::class);
 
 
@@ -93,4 +98,9 @@ Route::resource('datacategories', CategoriesController::class);
 
 require __DIR__.'/auth.php';
 Route::resource('users', DashBordUser::class);
+
+// This should be the last route - it will catch all other requests and direct them to the React app
+Route::get('/{path?}', function () {
+    return view('welcome');
+})->where('path', '.*');
 

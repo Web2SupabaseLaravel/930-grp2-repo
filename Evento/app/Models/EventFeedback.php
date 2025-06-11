@@ -17,7 +17,7 @@ class EventFeedback extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = null;
-
+    
     public function event()
     {
         return $this->belongsTo(Event::class);

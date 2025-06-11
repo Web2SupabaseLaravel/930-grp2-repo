@@ -1,0 +1,23 @@
+.edit-profile {
+    background-color: #f8f9fa; /* لون خلفية فاتح */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-profile h1 {
+    color: #6c757d; /* لون العنوان */
+}
+
+.edit-profile .form-control {
+    border: 1px solid #70505b; /* لون الحدود */
+}
+
+.edit-profile .btn-primary {
+    background-color: #47030c; /* لون زر الحفظ */
+    border-color: #6c757d; /* لون الحدود */
+}
+
+.edit-profile .btn-primary:hover {
+    background-color: #5a6268; /* لون الزر عند التحويم */
+}
