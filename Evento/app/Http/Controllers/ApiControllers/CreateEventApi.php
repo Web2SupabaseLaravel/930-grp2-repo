@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiControllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
 
-class EventControllerApi extends Controller
+class CreateEventApi extends Controller
 {
     public function index(Request $request)
     {
@@ -27,7 +27,7 @@ class EventControllerApi extends Controller
             $query->where('category_id', $request->category_id);
         }
 
-        $events = $query->paginate(9)->withQueryString();
+        $events = $query->paginate(4)->withQueryString();
 
         return response()->json([
             'success' => true,

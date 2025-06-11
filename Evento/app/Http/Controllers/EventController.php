@@ -22,6 +22,7 @@ class EventController extends Controller
         $sortBy = $request->get('sort_by', 'date');
         $sortDirection = $request->get('sort_direction', 'asc');
         $query->orderBy($sortBy, $sortDirection);
+    $events = $query->paginate(4)->withQueryString(); // ← مهم لتثبيت التصفية في pagination
 
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
