@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { userService } from '../services/api';
+import { userService } from '../../api';
 import '../DashB_U_CSS/CreateUserForm.css';
 
 function CreateUserForm({ onClose, onSave }) {
@@ -37,7 +37,7 @@ function CreateUserForm({ onClose, onSave }) {
       const { confirmPassword, ...dataToSave } = userData;
       const response = await userService.createUser(dataToSave);
       if (response.success) {
-        onSave(dataToSave); 
+        onSave(dataToSave);
         alert('User created successfully');
         onClose();
       } else {

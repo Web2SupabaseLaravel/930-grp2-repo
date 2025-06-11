@@ -8,34 +8,31 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     public function index(Request $request)
-{
-    $query = Event::query();
-
-    if ($request->filled('search')) {
-        $search = $request->search;
-        $query->where(function ($q) use ($search) {
-            $q->where('event_name', 'like', "%$search%")
-              ->orWhere('address', 'like', "%$search%");
-        });
-    }
-
-    $sortBy = $request->get('sort_by', 'date');
-    $sortDirection = $request->get('sort_direction', 'asc');
-    $query->orderBy($sortBy, $sortDirection);
-
-    if ($request->filled('category_id')) {
-        $query->where('category_id', $request->category_id);
-    }
-
-    $events = $query->paginate(9)->withQueryString(); // ← مهم لتثبيت التصفية في pagination
-
-    return view('CreateEvent.index', compact('events'));
-}
-
-
-    public function create()
     {
-        return view('CreateEvent.create');
+        $query = Event::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('event_name', 'like', "%$search%")
+                  ->orWhere('address', 'like', "%$search%");
+            });
+        }
+
+        $sortBy = $request->get('sort_by', 'date');
+        $sortDirection = $request->get('sort_direction', 'asc');
+        $query->orderBy($sortBy, $sortDirection);
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        $events = $query->paginate(9)->withQueryString();
+
+        return response()->json([
+            'success' => true,
+            'data' => $events
+        ]);
     }
 
     public function store(Request $request)
@@ -49,17 +46,26 @@ class EventController extends Controller
             'number_of_ticket' => 'required|integer|min:1',
             'date' => 'required|date|after_or_equal:today',
             'category_id' => 'required|integer|exists:categories,id',
-            'user_id' => 'nullable|exists:users,id',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         $event = Event::create($validatedData);
 
-        return redirect()->route('events.show', $event->id)->with('success', 'تم إنشاء الحدث بنجاح!');
+        return response()->json([
+            'success' => true,
+            'message' => 'تم إنشاء الحدث بنجاح!',
+            'data' => $event
+        ], 201);
     }
-    public function edit($id)
+
+    public function show($id)
     {
         $event = Event::findOrFail($id);
-        return view('CreateEvent.edit', compact('event'));
+
+        return response()->json([
+            'success' => true,
+            'data' => $event
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -79,13 +85,11 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->update($validatedData);
 
-        return redirect()->route('events.show', $event->id)->with('success', 'تم تحديث الحدث بنجاح');
-    }
-
-    public function show($id)
-    {
-        $event = Event::findOrFail($id);
-        return view('CreateEvent.show', compact('event'));
+        return response()->json([
+            'success' => true,
+            'message' => 'تم تحديث الحدث بنجاح',
+            'data' => $event
+        ]);
     }
 
     public function destroy($id)
@@ -93,6 +97,9 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
 
-        return redirect()->route('events.index')->with('success', 'تم حذف الحدث بنجاح');
+        return response()->json([
+            'success' => true,
+            'message' => 'تم حذف الحدث بنجاح'
+        ]);
     }
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { pageService } from '../services/api';
-import '../create_Eve_css/form.css';
+import { pageService } from '../../api';
+import '../../components/create_Eve_css/form.css';
 
 function CreateEventPage() {
   const [formData, setFormData] = useState({

@@ -2,35 +2,32 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import AdminDashboard from './components/AdminDashboard';
 import Events from './components/Events';
 import RoleRequests from './components/RoleRequests';
+import Dashboard from './components/DashBoardUser/Dashboard';
+import CreateEventPage from './components/create-events/Create-EvPage';
 
 const App = () => {
   return (
     <Router>
+      <nav>
+        <Link to="/">DashBoard</Link> | <Link to="/events">Create Event</Link>
+      </nav>
       <Routes>
-        <Route path="/admin" element={<AdminDashboard />}>
-          <Route path="events" element={<Events />} />
-          <Route path="requests" element={<RoleRequests />} />
-          <Route index element={<div>Welcome to Admin Dashboard</div>} />
-        </Route>
-        <Route path="*" element={<Navigate to="/admin" replace />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/events" element={<CreateEventPage />} />
       </Routes>
     </Router>
   );
 };
 
-export default App;
-
-// Rendering logic (moved to index.js or handled by Vite)
-
 if (document.getElementById('app')) {
-    const root = ReactDOM.createRoot(document.getElementById('app'));
-    root.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    );
-  }
+  const root = ReactDOM.createRoot(document.getElementById('app'));
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}

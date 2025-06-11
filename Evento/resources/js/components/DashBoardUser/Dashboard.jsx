@@ -5,7 +5,7 @@ import StatsCard from './StatsCard';
 import UserTable from './UserTable';
 import CreateUserForm from './CreateUserForm';
 import EditUserForm from './EditUserForm';
-import { userService } from '../services/api';
+import { userService } from '../../api';
 import '../DashB_U_CSS/Dashboard.css';
 
 function Dashboard() {
