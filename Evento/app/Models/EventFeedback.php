@@ -15,7 +15,8 @@ class EventFeedback extends Model
         'rating',
     ];
 
-    public $timestamps = false;
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = null;
 
     public function event()
     {
