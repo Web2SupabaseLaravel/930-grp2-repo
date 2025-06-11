@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')->middleware('jwt')->group(function () {
     Route::resource('events', CreateEventApi::class);
-    Route::resource('feedback', EventFeedbackApiController::class);
     Route::resource('userintersts', UserInterstsIdApiController::class);
     Route::resource('datacategories', CategoriesApiController::class);
     Route::get('user', [JWTAuthController::class, 'getUser']);
@@ -39,3 +38,5 @@ Route::resource('datacategories', CategoriesApiController::class);
 
 Route::get('/role-requests', [RoleRequestApiController::class, 'index']);
 Route::put('/role-requests/{id}', [RoleRequestApiController::class, 'update']);
+
+Route::resource('feedback', EventFeedbackApiController::class);

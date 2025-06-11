@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\ApiControllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
-
 class CreateEventApi extends Controller
-
 {
-    
     public function index(Request $request)
     {
         $query = Event::query();
@@ -31,17 +27,11 @@ class CreateEventApi extends Controller
             $query->where('category_id', $request->category_id);
         }
 
-        $events = $query->paginate(9)->withQueryString();
+        $events = $query->paginate(4)->withQueryString();
 
         return response()->json([
             'success' => true,
-            'data' => $events->items(), // Extract the items array
-            'pagination' => [
-                'current_page' => $events->currentPage(),
-                'last_page' => $events->lastPage(),
-                'per_page' => $events->perPage(),
-                'total' => $events->total(),
-            ]
+            'data' => $events
         ]);
     }
 
@@ -80,21 +70,19 @@ class CreateEventApi extends Controller
 
     public function update(Request $request, $id)
     {
-        $event = Event::findOrFail($id);
-
         $validatedData = $request->validate([
-            'event_name' => 'sometimes|required|string|max:255',
-            'address' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required|string',
-            'photo' => 'nullable|url|max:255',
-            'price' => 'sometimes|required|numeric|min:0',
-            'number_of_ticket' => 'sometimes|required|integer|min:1',
-            'date' => 'sometimes|required|date',
-            'category_id' => 'sometimes|required|integer|exists:categories,id',
+            'event_name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'number_of_ticket' => 'required|integer|min:1',
+            'date' => 'required|date',
+            'category_id' => 'required|integer|exists:categories,id',
             'user_id' => 'nullable|integer|exists:users,id',
-            'status' => 'sometimes|required|in:pending,accepted,rejected',
+            'photo' => 'nullable|string|max:255',
         ]);
 
+        $event = Event::findOrFail($id);
         $event->update($validatedData);
 
         return response()->json([

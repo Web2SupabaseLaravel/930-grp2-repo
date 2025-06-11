@@ -7,12 +7,17 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
 import Welcome from "./components/Welcome";
+import Home from './components/HomePage/Home';
+
+
+
 
 const App = () => {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<SignUpForm />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/sign-up" element={<SignUpForm />} />
                 <Route path="/sign-in" element={<SignInForm />} />
                 <Route path="/welcome" element={<Welcome />} />
@@ -20,15 +25,22 @@ const App = () => {
             </Routes>
         </Router>
     );
-};
+  
 
+
+};
 export default App;
 
 if (document.getElementById("app")) {
     const root = ReactDOM.createRoot(document.getElementById("app"));
+
+if (document.getElementById('app')) {
+    const root = ReactDOM.createRoot(document.getElementById('app'));
     root.render(
         <React.StrictMode>
             <App />
         </React.StrictMode>
     );
+}
+
 }

@@ -13,8 +13,9 @@ return [
             'provider' => 'users',
         ],
         'api' => [
-            'driver' => 'jwt', // Use JWT driver for API
+            'driver' => 'jwt',
             'provider' => 'users',
+            'hash' => false,
         ],
     ],
 
