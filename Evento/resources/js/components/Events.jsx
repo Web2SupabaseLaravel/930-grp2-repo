@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../api';
+import api from '../api';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -10,13 +10,27 @@ const Events = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const response = await axios.get(`/api/events?page=${currentPage}`); // Added /api prefix
-        setEvents(response.data.data || []);
+        const response = await api.get(`/events?page=${currentPage}`);
+        console.log('API Response:', response);
+        if (!response.data || typeof response.data !== 'object' || response.data instanceof ArrayBuffer) {
+          throw new Error('Unexpected response format: Received HTML or non-JSON data');
+        }
+        if (!response.data.data) {
+          throw new Error('Missing data field in response');
+        }
+        setEvents(response.data.data);
         setLastPage(response.data.pagination?.last_page || 1);
       } catch (error) {
-        console.error('Error fetching events:', error);
-        setError('Failed to load events. Please try again.');
+        console.error('Fetch Error:', {
+          message: error.message,
+          response: error.response ? error.response.data : 'No response',
+          status: error.response?.status,
+          headers: error.response?.headers,
+        });
+        setError(`Failed to load events: ${error.message} (Status: ${error.response?.status || 'Unknown'})`);
       } finally {
         setLoading(false);
       }
@@ -26,15 +40,19 @@ const Events = () => {
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      const response = await axios.put(`/api/events/${id}`, { status: newStatus });
+      const response = await api.put(`/events/${id}`, { status: newStatus }, { headers: { 'Accept': 'application/json' } });
       if (response.data.success) {
         setEvents(events.map(event => event.id === id ? { ...event, status: newStatus } : event));
       } else {
-        setError('Failed to update event status.');
+        setError(`Update failed: ${response.data.message || 'Unknown error'}`);
       }
     } catch (error) {
-      console.error('Error updating status:', error);
-      setError('Error updating event status. Please try again.');
+      console.error('Update Error:', {
+        message: error.message,
+        response: error.response ? error.response.data : 'No response',
+        status: error.response?.status,
+      });
+      setError(`Error updating event status: ${error.response?.data?.message || error.message} (Status: ${error.response?.status || 'Unknown'})`);
     }
   };
 
@@ -45,7 +63,7 @@ const Events = () => {
     <div>
       <h2 className="h4 mb-3">Events</h2>
       <h3 className="h5 mb-3">All Events</h3>
-      <button className="btn btn-primary mb-3">Create Event</button>
+      <button className="btn  mb-3" style={{backgroundColor:"#68263D" , color:"white"}}>Create Event</button>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -65,9 +83,9 @@ const Events = () => {
               <td>{event.category?.name || 'N/A'}</td>
               <td>
                 <select className="form-select" onChange={(e) => handleStatusChange(event.id, e.target.value)}>
-                  <option>{event.status || 'Pending'}</option>
-                  <option>Accepted</option>
-                  <option>Rejected</option>
+                  <option>{event.status || 'pending'}</option>
+                  <option>accepted</option>
+                  <option>rejected</option>
                 </select>
               </td>
             </tr>
@@ -78,7 +96,7 @@ const Events = () => {
         <ul className="pagination">
           {Array.from({ length: lastPage }, (_, i) => i + 1).map(page => (
             <li key={page} className={`page-item ${currentPage === page ? 'active' : ''}`}>
-              <button className="page-link" onClick={() => setCurrentPage(page)}>{page}</button>
+              <button className="page-link" style={{backgroundColor:"#68263D" ,color:"white"}} onClick={() => setCurrentPage(page)}>{page}</button>
             </li>
           ))}
         </ul>
