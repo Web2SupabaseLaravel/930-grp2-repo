@@ -11,6 +11,11 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\UserInterstsIdController;
 use App\Http\Controllers\TicketsController;
 
+
+Route::get('/{any}', function () {
+    return view('app');  // صفحة الـ blade اللي فيها div#app وتشغل React
+})->where('any', '.*');
+
 Route::resource('tickets', TicketsController::class);
 
 
