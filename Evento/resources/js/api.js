@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // جلب رابط الـ API من ملف البيئة
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/DashBoard';
 
 // إنشاء instance خاص بـ axios مع الإعدادات
 const api = axios.create({

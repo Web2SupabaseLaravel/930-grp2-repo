@@ -7,6 +7,7 @@ use App\Http\Controllers\JWTAuthController;
 use App\Http\Controllers\ProfileApiController;
 use App\Http\Controllers\ApiControllers\EventFeedbackApiController;
 use App\Http\Controllers\ApiControllers\RoleRequestApiController;
+use App\Http\Controllers\ApiControllers\DashBoardUserApi;
 
 use App\Http\Controllers\ApiControllers\UserInterstsIdApiController;
 use App\Http\Controllers\ApiControllers\CategoriesApiController;
@@ -48,10 +49,19 @@ Route::resource('api/role-requests', RoleRequestApiController::class);
 
 Route::resource('userintersts', UserInterstsIdApiController::class);
 Route::resource('datacategories', CategoriesApiController::class);
+Route::resource('DashBoard', DashBoardUserApi::class);
 
 
 Route::get('/role-requests', [RoleRequestApiController::class, 'index']);
 Route::put('/role-requests/{id}', [RoleRequestApiController::class, 'update']);
 
 Route::resource('feedback', EventFeedbackApiController::class);
+
+
+
+Route::resource('/events', CreateEventApi::class);
+
+Route::get('/events', [CreateEventApi::class, 'index']);
+Route::put('/events/{id}', [CreateEventApi::class, 'update']);
+Route::resource('/events', CreateEventApi::class);
 
