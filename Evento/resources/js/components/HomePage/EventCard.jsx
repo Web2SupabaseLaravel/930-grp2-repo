@@ -9,10 +9,10 @@ import {
   faInfoCircle
 } from '@fortawesome/free-solid-svg-icons';
 
-import food from '../assets/food.png';
-import music from '../assets/music.png';
-import teacher from '../assets/teacher.png';
-import soccer from '../assets/soccer.png';
+import food from '../../assets/food.png';
+import music from '../../assets/music.png';
+import teacher from '../../assets/teacher.png';
+import soccer from '../../assets/soccer.png';
 const localImages = [food, music, teacher, soccer];
 
 const EventCard = ({ image, title, date, location, price, description, category, idx = 0 }) => {

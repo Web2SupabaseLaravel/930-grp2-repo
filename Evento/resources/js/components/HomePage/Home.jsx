@@ -8,10 +8,10 @@ import EventList from './EventList';
 import ReviewList from './ReviewList';
 import Footer from './Footer';
 
-import food from '../assets/food.png';
-import soccer from '../assets/soccer.png';
-import teacher from '../assets/teacher.png';
-import music from '../assets/music.png';
+import food from '../../assets/food.png';
+import soccer from '../../assets/soccer.png';
+import teacher from '../../assets/teacher.png';
+import music from '../../assets/music.png';
 
 function Home() {
   const menuItems = [
