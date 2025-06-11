@@ -10,33 +10,41 @@ use Illuminate\Support\Facades\Hash;
 class DashBordUser extends Controller
 {
     public function index(Request $request)
-{
-    $query = DashB_User::query();
+    {
+        $query = DashB_User::query();
 
-    if ($request->has('search') && $request->search != '') {
-        $query->where(function ($q) use ($request) {
-            $q->where('name', 'like', '%' . $request->search . '%')
-              ->orWhere('email', 'like', '%' . $request->search . '%');
-        });
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('email', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        $sort_by = $request->get('sort_by', 'id');
+        $sort_direction = $request->get('sort_direction', 'asc');
+        $query->orderBy($sort_by, $sort_direction);
+
+        $users = $query->get();
+        $total_events = Event::count();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'users' => $users,
+                'total_events' => $total_events
+            ]
+        ]);
     }
-
-    if ($request->has('role') && $request->role != '') {
-        $query->where('role', $request->role);
-    }
-
-    $sort_by = $request->get('sort_by', 'id');
-    $sort_direction = $request->get('sort_direction', 'asc');
-    $query->orderBy($sort_by, $sort_direction);
-
-    $users = $query->get();
-    $total_events = Event::count();
-
-    return view('Dash_User.index', compact('users', 'total_events'));
-}
 
     public function create()
     {
-        return view('Dash_User.create');
+        return response()->json([
+            'message' => 'Not applicable in API context'
+        ], 400);
     }
 
     public function store(Request $request)
@@ -49,22 +57,30 @@ class DashBordUser extends Controller
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        DashB_User::create($validatedData);
+        $user = DashB_User::create($validatedData);
 
-        return redirect()->route('dashboard.user.index')
-                         ->with('success', 'User created successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'User created successfully.',
+            'data' => $user
+        ], 201);
     }
 
     public function show($id)
     {
         $user = DashB_User::findOrFail($id);
-        return view('Dash_User.show', compact('user'));
+
+        return response()->json([
+            'success' => true,
+            'data' => $user
+        ]);
     }
 
     public function edit($id)
     {
-        $user = DashB_User::findOrFail($id);
-        return view('Dash_User.edit', compact('user'));
+        return response()->json([
+            'message' => 'Not applicable in API context'
+        ], 400);
     }
 
     public function update(Request $request, $id)
@@ -85,8 +101,11 @@ class DashBordUser extends Controller
 
         $user->update($validatedData);
 
-        return redirect()->route('dashboard.user.index')
-                         ->with('success', 'User updated successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'User updated successfully.',
+            'data' => $user
+        ]);
     }
 
     public function destroy($id)
@@ -94,7 +113,9 @@ class DashBordUser extends Controller
         $user = DashB_User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('dashboard.user.index')
-                         ->with('success', 'User deleted successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'User deleted successfully.'
+        ]);
     }
 }

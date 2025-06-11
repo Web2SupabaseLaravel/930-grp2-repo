@@ -11,7 +11,8 @@ class Cors
         $response = $next($request);
 
         $origin = $request->headers->get('Origin');
-        $allowedOrigins = ['http://localhost:3000', 'http://localhost:3000/create-event','http://127.0.0.1:8000']; // عدل حسب بيئتك
+        $allowedOrigins = ['http://localhost:3000','http://127.0.0.1:8000/', 'http://localhost:3000/create-event','http://127.0.0.1:8000']; // عدل حسب بيئتك
+
 
 
         if (in_array($origin, $allowedOrigins)) {
