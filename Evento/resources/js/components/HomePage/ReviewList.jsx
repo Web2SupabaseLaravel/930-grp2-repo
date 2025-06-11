@@ -186,7 +186,7 @@ const ReviewList = () => {
           />
           <textarea
             name="comment"
-            placeholder="Write your review..."
+            placeholder="Write your review...."
             value={newReview.comment}
             onChange={handleChange}
             required
