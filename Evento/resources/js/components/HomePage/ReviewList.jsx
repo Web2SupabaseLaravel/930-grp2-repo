@@ -216,7 +216,7 @@ const ReviewList = () => {
             </div>
             <div className="review-actions">
               <button onClick={() => handleEdit(index)}>Edit</button>
-              <button onClick={() => handleDelete(index)} style={{ color: 'red' }}>Delete</button>
+              <button onClick={() => handleDelete(index)} style={{ color: 'white' }}>Delete</button>
             </div>
           </div>
         ))}
