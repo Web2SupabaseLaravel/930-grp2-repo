@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import StatsCard from './StatsCard';
 import UserTable from './UserTable';
 import CreateUserForm from './CreateUserForm';
 import EditUserForm from './EditUserForm';
-import { userService } from '../../api';
 import '../DashB_U_CSS/Dashboard.css';
 
 function Dashboard() {
@@ -23,18 +23,19 @@ function Dashboard() {
   const [showEditUserForm, setShowEditUserForm] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  // Fetch users from API
   const fetchUsers = async () => {
     try {
       setIsLoading(true);
-      const params = searchTerm ? { search: searchTerm } : {};
-      const response = await userService.getUsers(params);
-      if (response && response.success) {
-        setUsers(response.data.users || []);
+      const response = await axios.get('http://127.0.0.1:8000/api/DashBoard', {
+        params: searchTerm ? { search: searchTerm } : {}
+      });
+      if (response.data && response.data.success) {
+        const userList = response.data.data.users || [];
+        setUsers(userList);
         setStats({
-          totalUsers: (response.data.users || []).length,
-          totalEvents: response.data.total_events || 0,
-          pendingRequests: 5
+          totalUsers: userList.length,
+          totalEvents: response.data.data.total_events || 0,
+          pendingRequests: 5 // مؤقتًا ثابت
         });
         setError(null);
       } else {
@@ -47,7 +48,6 @@ function Dashboard() {
     }
   };
 
-  // Initial fetch and search
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -57,15 +57,14 @@ function Dashboard() {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
-  // Handlers
   const handleCreateUser = () => {
     setShowCreateUserForm(true);
   };
 
   const handleSaveUser = async (userData) => {
     try {
-      const response = await userService.createUser(userData);
-      if (response.success) {
+      const response = await axios.post('http://127.0.0.1:8000/api/DashBoard', userData);
+      if (response.data && response.data.success) {
         fetchUsers();
         setShowCreateUserForm(false);
       }
@@ -76,9 +75,9 @@ function Dashboard() {
 
   const handleEdit = async (userId) => {
     try {
-      const response = await userService.getUser(userId);
-      if (response.success) {
-        setSelectedUser(response.data);
+      const response = await axios.get(`http://127.0.0.1:8000/api/DashBoard/${userId}`);
+      if (response.data && response.data.success) {
+        setSelectedUser(response.data.data);
         setShowEditUserForm(true);
       }
     } catch (err) {
@@ -88,8 +87,8 @@ function Dashboard() {
 
   const handleUpdateUser = async (userId, updatedData) => {
     try {
-      const response = await userService.updateUser(userId, updatedData);
-      if (response.success) {
+      const response = await axios.put(`http://127.0.0.1:8000/api/DashBoard/${userId}`, updatedData);
+      if (response.data && response.data.success) {
         fetchUsers();
         setShowEditUserForm(false);
         setSelectedUser(null);
@@ -102,8 +101,8 @@ function Dashboard() {
   const handleDelete = async (userId) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        const response = await userService.deleteUser(userId);
-        if (response.success) {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/DashBoard/${userId}`);
+        if (response.data && response.data.success) {
           fetchUsers();
         }
       } catch (err) {
@@ -125,6 +124,7 @@ function Dashboard() {
         <Header />
 
         {error && <div className="error-message">{error}</div>}
+
         <div className="stats-section">
           {statsData.map((stat, index) => (
             <StatsCard
@@ -134,8 +134,8 @@ function Dashboard() {
               icon={stat.icon}
             />
           ))}
-
         </div>
+
         <div className="search-container">
           <input
             type="text"
@@ -145,6 +145,7 @@ function Dashboard() {
             className="search-input"
           />
         </div>
+
         {isLoading ? (
           <div className="loading">Loading...</div>
         ) : (
@@ -155,12 +156,9 @@ function Dashboard() {
             onCreateUser={handleCreateUser}
           />
         )}
-        {showCreateUserForm && (
-          <CreateUserForm
-            onClose={() => setShowCreateUserForm(false)}
-            onSave={handleSaveUser}
-          />
-        )}
+
+      
+
         {showEditUserForm && selectedUser && (
           <EditUserForm
             user={selectedUser}
@@ -169,13 +167,9 @@ function Dashboard() {
               setSelectedUser(null);
             }}
             onSave={handleUpdateUser}
-
           />
-
         )}
-
       </div>
-
     </div>
   );
 }

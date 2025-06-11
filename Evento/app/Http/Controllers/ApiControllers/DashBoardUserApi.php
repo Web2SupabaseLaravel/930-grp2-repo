@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiControllers;
 
 use Illuminate\Http\Request;
 use App\Models\DashB_User;
 use App\Models\Event;
 use Illuminate\Support\Facades\Hash;
 
-class DashBordUserApi extends Controller
+class DashBoardUserApi extends Controller
 {
     public function index(Request $request)
     {

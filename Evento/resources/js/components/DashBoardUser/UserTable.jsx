@@ -6,9 +6,7 @@ function UserTable({ users, onEdit, onDelete, onCreateUser }) {
     <div className="user-table-container">
       <div className="table-header">
         <h2>All Users</h2>
-        <div className="table-actions">
-          <button className="btn-primary" onClick={onCreateUser}>Create User</button>
-        </div>
+       
       </div>
 
       <table className="user-table">
