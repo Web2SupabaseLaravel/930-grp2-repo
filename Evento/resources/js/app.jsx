@@ -36,8 +36,7 @@ const App = () => {
 };
 export default App;
 
-if (document.getElementById("app")) {
-    const root = ReactDOM.createRoot(document.getElementById("app"));
+
 
 if (document.getElementById('app')) {
     const root = ReactDOM.createRoot(document.getElementById('app'));
@@ -46,4 +45,4 @@ if (document.getElementById('app')) {
             <App />
         </React.StrictMode>
     );
-
+}
