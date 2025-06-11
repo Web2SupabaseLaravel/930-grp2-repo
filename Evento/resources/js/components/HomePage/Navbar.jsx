@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { FaUserCircle } from 'react-icons/fa';
-import logo from '../assets/Evento.png';
+import logo from '../../assets/Evento.png';
 
 const NavigationBar = ({ menuItems }) => {
   return (
