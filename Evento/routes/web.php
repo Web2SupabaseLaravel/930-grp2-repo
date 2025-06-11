@@ -99,3 +99,8 @@ Route::resource('datacategories', CategoriesController::class);
 require __DIR__.'/auth.php';
 Route::resource('users', DashBordUser::class);
 
+// This should be the last route - it will catch all other requests and direct them to the React app
+Route::get('/{path?}', function () {
+    return view('welcome');
+})->where('path', '.*');
+

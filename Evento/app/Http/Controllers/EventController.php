@@ -27,7 +27,7 @@ class EventController extends Controller
         $query->where('category_id', $request->category_id);
     }
 
-    $events = $query->paginate(9)->withQueryString(); // ← مهم لتثبيت التصفية في pagination
+    $events = $query->paginate(4)->withQueryString(); // ← مهم لتثبيت التصفية في pagination
 
     return view('CreateEvent.index', compact('events'));
 }
