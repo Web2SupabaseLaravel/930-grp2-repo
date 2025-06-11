@@ -15,7 +15,6 @@ const App = () => {
     </Router>
   );
 };
-
 export default App;
 
 if (document.getElementById('app')) {
