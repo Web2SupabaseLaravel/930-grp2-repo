@@ -2,16 +2,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import UserProfile from './components/UserProfile';
-import EditProfile from './components/EditProfile';
+import EditProfile from './components/Profile/EditProfile';
+import ProfilePage from './components/Profile/ProfilePage';
 
 
 const App = () => {
   return (
     <Router>
       <Routes>
+
          <Route path="/edit" element={<EditProfile />} />
-         <Route path="/profile" element={<UserProfile />} />
+         <Route path="/profile" element={<ProfilePage />} />
 
       </Routes>
     </Router>
