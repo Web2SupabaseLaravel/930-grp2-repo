@@ -4,6 +4,7 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite"
+
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
