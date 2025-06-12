@@ -63,9 +63,7 @@ import Welcome from "./components/Welcome";
 import Home from './components/HomePage/Home';
 import CreateEventPage from './components/create-events/Create-EvPage';
 import Dashboard from './components/DashBoardUser/Dashboard';
-import AdminDashboard from "./components/AdminDashboard";
-import Events from "./components/Events";
-import RoleRequests from "./components/RoleRequests";
+
 const App = () => {
     return (
         <Router>
@@ -77,12 +75,6 @@ const App = () => {
                 <Route path="/events" element={<CreateEventPage />} />
                 <Route path="/edit" element={<EditProfile />} />
                 <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/admin" element={<AdminDashboard />}>
-                    <Route path="users" element={<Dashboard />} />
-                    <Route path="events" element={<Events />} />
-                    <Route path="requests" element={<RoleRequests/>} />
-                    <Route index element={<div>Welcome to Admin Dashboard</div>} />
-                </Route>
                 <Route path="/user-dashboard" element={<Dashboard />} />
             </Routes>
         </Router>

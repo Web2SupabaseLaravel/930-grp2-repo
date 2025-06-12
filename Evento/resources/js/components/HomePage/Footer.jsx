@@ -18,9 +18,6 @@ const Footer = ({ brandName, brandName2, email }) => {
           © {currentYear} {brandName} - All rights reserved.
         </div>
         <div className="d-flex gap-4">
-          <Link to="/admin" style={{ color: '#EEE2DC', textDecoration: 'none' }}>
-            Admin Dashboard
-          </Link>
           <Link to="/user-dashboard" style={{ color: '#EEE2DC', textDecoration: 'none' }}>
             User Dashboard
           </Link>
