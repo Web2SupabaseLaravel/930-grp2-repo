@@ -25,10 +25,10 @@ const ReviewList = () => {
           const mapped = res.data.data.map(item => ({
             id: item.id,
             event_id: item.event_id,
-            title: item.event?.event_name || 'No Title',
+            title: item.event?.event_name || 'No Title' ,
             rating: item.rating,
             review: item.comment,
-            author: item.user?.name || 'Anonymous'
+            author: item.user?.name || 'osaid'
           }));
           setReviews(mapped);
         } else {
@@ -73,10 +73,10 @@ const ReviewList = () => {
             const updatedReview = {
               id: updated.id,
               event_id: updated.event_id,
-              title: updated.event?.event_name || 'No Title',
+              title: updated.event?.event_name || 'No Title' ,
               rating: updated.rating,
               review: updated.comment,
-              author: updated.user?.name || 'You'
+              author: updated.user?.name || 'osaid'
             };
             setReviews(prev => {
               const copy = [...prev];
@@ -104,7 +104,7 @@ const ReviewList = () => {
               title: item.event?.event_name || 'No Title',
               rating: item.rating,
               review: item.comment,
-              author: item.user?.name || 'You'
+              author: item.user?.name || 'osaid'
             };
             setReviews(prev => [added, ...prev]);
             resetForm();

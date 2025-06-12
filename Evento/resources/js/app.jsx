@@ -52,17 +52,16 @@ if (document.getElementById('app')) {
 
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import EditProfile from './components/Profile/EditProfile';
 import ProfilePage from './components/Profile/ProfilePage';
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
-import Welcome from "./components/Welcome";
+import DashBoard from "./components/DashBoardUser/Dashboard";
 import Home from './components/HomePage/Home';
 import CreateEventPage from './components/create-events/Create-EvPage';
-import DashBoard from './components/DashBoardUser/Dashboard';
 
 
 
@@ -79,12 +78,13 @@ const App = () => {
                 <Route path="/edit" element={<EditProfile />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/DashBoard" element={<DashBoard />} />
-
             </Routes>
         </Router>
     );
-};
 
+
+
+};
 export default App;
 
 
@@ -95,4 +95,5 @@ if (document.getElementById('app')) {
             <App />
         </React.StrictMode>
     );
+
 }

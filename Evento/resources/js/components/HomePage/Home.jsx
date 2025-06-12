@@ -15,8 +15,8 @@ import music from '../../assets/music.png';
 
 function Home() {
   const menuItems = [
-    { text: 'Home', link: '#home' },
-    { text: 'Events', link: '#events' },
+    { text: 'Home', link: '/home' },
+    { text: 'DashBoard', link: '/DashBoard' },
     { text: 'Create Event', link: '/events' }
   ];
 
