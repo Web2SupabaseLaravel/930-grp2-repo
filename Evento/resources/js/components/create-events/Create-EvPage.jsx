@@ -3,6 +3,8 @@ import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import { pageService } from '../../api';
 import '../../components/create_Eve_css/form.css';
+import NavigationBar from '../HomePage/Navbar';
+import Footer from '../HomePage/Footer';
 
 function CreateEventPage() {
   const navigate = useNavigate();
@@ -40,6 +42,11 @@ function CreateEventPage() {
     }));
     setError(null);
   };
+ const menuItems = [
+    { text: 'Home', link: '/home' },
+    { text: 'DashBoard', link: '/DashBoard' },
+    { text: 'Create Event', link: '/events' }
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,7 +63,7 @@ function CreateEventPage() {
 
     const dataToSend = {
       ...formData,
-      user_id: userId, // أضف user_id إلى البيانات المرسلة
+      user_id: userId, 
     };
 
     try {
@@ -73,12 +80,10 @@ function CreateEventPage() {
           category_id: '',
           description: '',
           photo: '',
-          user_id: '', // إعادة تعيين user_id
+          user_id: '',
         });
-        
-        setTimeout(() => {
-          navigate('/home');
-        }, 5000);
+navigate('/home');
+
       }
     } catch (err) {
       console.error('Error:', err);
@@ -97,119 +102,129 @@ function CreateEventPage() {
   };
 
   return (
-    <div className="create-event-container">
-      <div className="form-box">
-        <h2 className="form-title">Create a New Event</h2>
+    <>
+  <NavigationBar menuItems={menuItems} />
+        <div className="create-event-container">
+        <div className="form-box">
+          <h2 className="form-title">Create a New Event</h2>
 
-        {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">Event created successfully!</div>}
-        {isLoading && <div className="loading-message">Creating event...</div>}
+          {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">Event created successfully!</div>}
+          {isLoading && <div className="loading-message">Creating event...</div>}
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="event_name">Name Event</label>
-          <input
-            type="text"
-            id="event_name"
-            name="event_name"
-            value={formData.event_name}
-            onChange={handleChange}
-            required
-          />
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="event_name">Name Event</label>
+            <input
+              type="text"
+              id="event_name"
+              name="event_name"
+              value={formData.event_name}
+              onChange={handleChange}
+              required
+            />
 
-          <label htmlFor="date">Date & Time 🗓</label>
-          <input
-            type="datetime-local"
-            id="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
+            <label htmlFor="date">Date & Time 🗓</label>
+            <input
+              type="datetime-local"
+              id="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              required
+            />
 
-          <label htmlFor="price">Price $</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            step="0.01"
-            min="0"
-            required
-          />
+            <label htmlFor="price">Price $</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              step="0.01"
+              min="0"
+              required
+            />
 
-          <label htmlFor="number_of_ticket">Number of Tickets 🧾</label>
-          <input
-            type="number"
-            id="number_of_ticket"
-            name="number_of_ticket"
-            value={formData.number_of_ticket}
-            onChange={handleChange}
-            min="1"
-            required
-          />
+            <label htmlFor="number_of_ticket">Number of Tickets 🧾</label>
+            <input
+              type="number"
+              id="number_of_ticket"
+              name="number_of_ticket"
+              value={formData.number_of_ticket}
+              onChange={handleChange}
+              min="1"
+              required
+            />
 
-          <label htmlFor="address">Address 📍</label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-          />
+            <label htmlFor="address">Address 📍</label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              required
+            />
 
-          <label htmlFor="category_id">Event Category 📋</label>
-          <select
-            id="category_id"
-            name="category_id"
-            value={formData.category_id}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Category</option>
-            <option value="1">Music</option>
-            <option value="2">Sports</option>
-            <option value="3">Workshop</option>
-            <option value="4">Other</option>
-          </select>
+            <label htmlFor="category_id">Event Category 📋</label>
+            <select
+              id="category_id"
+              name="category_id"
+              value={formData.category_id}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Category</option>
+              <option value="1">Music</option>
+              <option value="2">Sports</option>
+              <option value="3">Workshop</option>
+              <option value="4">Other</option>
+            </select>
 
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows="3"
-            required
-          ></textarea>
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows="3"
+              required
+            ></textarea>
 
-          <label htmlFor="photo">Image URL 🖼</label>
-          <input
-            type="url"
-            id="photo"
-            name="photo"
-            value={formData.photo}
-            onChange={handleChange}
-            placeholder="https://example.com/image.jpg"
-            required
-          />
-          {formData.photo && (
-            <div className="image-preview">
-              <img
-                src={formData.photo}
-                alt="Event Preview"
-                style={{ maxWidth: '200px' }}
-              />
-            </div>
-          )}
+            <label htmlFor="photo">Image URL 🖼</label>
+            <input
+              type="url"
+              id="photo"
+              name="photo"
+              value={formData.photo}
+              onChange={handleChange}
+              placeholder="https://example.com/image.jpg"
+              required
+            />
+            {formData.photo && (
+              <div className="image-preview">
+                <img
+                  src={formData.photo}
+                  alt="Event Preview"
+                  style={{ maxWidth: '200px' }}
+                />
+              </div>
+            )}
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'Creating...' : 'Create Event'}
+            </button>
 
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Creating...' : 'Create Event'}
-          </button>
-        </form>
+          </form>
+
+        </div>
       </div>
-    </div>
+                <Footer
+        brandName="Evento"
+        brandName2="Privacy"
+        email="info@evento.com"
+      />
+
+    </>
   );
 }
 
