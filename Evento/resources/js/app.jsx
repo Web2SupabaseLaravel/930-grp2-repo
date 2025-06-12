@@ -60,6 +60,7 @@ import ProfilePage from './components/Profile/ProfilePage';
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
 import Welcome from "./components/Welcome";
+
 import Home from './components/HomePage/Home';
 import CreateEventPage from './components/create-events/Create-EvPage';
 
@@ -75,10 +76,8 @@ const App = () => {
                 <Route path="/sign-up" element={<SignUpForm />} />
                 <Route path="/sign-in" element={<SignInForm />} />
                 <Route path="/events" element={<CreateEventPage />} />
-                <Route path="*" element={<Navigate to="/" replace />} />
                 <Route path="/edit" element={<EditProfile />} />
                 <Route path="/profile" element={<ProfilePage />} />
-
             </Routes>
         </Router>
     );
