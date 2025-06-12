@@ -60,7 +60,6 @@ import ProfilePage from './components/Profile/ProfilePage';
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
 import Welcome from "./components/Welcome";
-
 import Home from './components/HomePage/Home';
 import CreateEventPage from './components/create-events/Create-EvPage';
 import DashBoard from './components/DashBoardUser/Dashboard';
@@ -84,10 +83,8 @@ const App = () => {
             </Routes>
         </Router>
     );
-
-
-
 };
+
 export default App;
 
 
@@ -98,5 +95,4 @@ if (document.getElementById('app')) {
             <App />
         </React.StrictMode>
     );
-
 }
