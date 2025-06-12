@@ -13,8 +13,8 @@ class CreateEventApi extends Controller
     
     public function index(Request $request)
     {
-        $query = Event::query();
-
+        $query = Event::with(['user', 'category']); // 🔥 هذا هو المفتاح
+    
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -22,17 +22,17 @@ class CreateEventApi extends Controller
                   ->orWhere('address', 'like', "%$search%");
             });
         }
-
+    
         $sortBy = $request->get('sort_by', 'date');
         $sortDirection = $request->get('sort_direction', 'asc');
         $query->orderBy($sortBy, $sortDirection);
-
+    
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
-
+    
         $events = $query->paginate(9)->withQueryString();
-
+    
         return response()->json([
             'success' => true,
             'data' => $events->items(), // Extract the items array
@@ -44,6 +44,7 @@ class CreateEventApi extends Controller
             ]
         ]);
     }
+    
 
     public function store(Request $request)
     {

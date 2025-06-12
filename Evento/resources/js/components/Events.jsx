@@ -80,7 +80,7 @@ const Events = () => {
               <td>{event.id}</td>
               <td>{event.event_name}</td>
               <td>{event.user?.email || 'N/A'}</td>
-              <td>{event.category?.name || 'N/A'}</td>
+              <td>{event.category?.categories_name || 'N/A'}</td>
               <td>
                 <select className="form-select" onChange={(e) => handleStatusChange(event.id, e.target.value)}>
                   <option>{event.status || 'pending'}</option>

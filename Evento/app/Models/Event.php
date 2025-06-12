@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 class Event extends Model
 {
-        protected $table = 'event';
-public $timestamps = false;
+    protected $table = 'event'; // تأكد أن اسم الجدول صحيح
+
+    public $timestamps = false;
 
     protected $fillable = [
         'address',
@@ -23,4 +23,14 @@ public $timestamps = false;
         'category_id'
     ];
 
+    // 🔥 العلاقات المضافة
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'category_id');
+    }
 }
