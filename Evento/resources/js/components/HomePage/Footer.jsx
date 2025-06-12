@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Footer = ({ brandName, brandName2, email }) => {
   const currentYear = new Date().getFullYear();
@@ -16,8 +17,13 @@ const Footer = ({ brandName, brandName2, email }) => {
         <div style={{ fontWeight: '500' }}>
           © {currentYear} {brandName} - All rights reserved.
         </div>
-        <div>
-          {brandName2}
+        <div className="d-flex gap-4">
+          <Link to="/admin" style={{ color: '#EEE2DC', textDecoration: 'none' }}>
+            Admin Dashboard
+          </Link>
+          <Link to="/user-dashboard" style={{ color: '#EEE2DC', textDecoration: 'none' }}>
+            User Dashboard
+          </Link>
         </div>
         <div>
           <a href={`mailto:${email}`} className="footer-email">

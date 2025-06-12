@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { jwtDecode } from 'jwt-decode'; // استيراد التصدير المدعوم
+import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 import { pageService } from '../../api';
 import '../../components/create_Eve_css/form.css';
 
 function CreateEventPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     event_name: '',
     date: '',
@@ -13,7 +15,7 @@ function CreateEventPage() {
     category_id: '',
     description: '',
     photo: '',
-    user_id: '', // أضف حقل user_id
+    user_id: '',
   });
 
   const [error, setError] = useState(null);
@@ -73,6 +75,10 @@ function CreateEventPage() {
           photo: '',
           user_id: '', // إعادة تعيين user_id
         });
+        
+        setTimeout(() => {
+          navigate('/home');
+        }, 5000);
       }
     } catch (err) {
       console.error('Error:', err);

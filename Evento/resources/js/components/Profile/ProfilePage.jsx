@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
@@ -71,7 +72,9 @@ const ProfilePage = () => {
   return (
     <div className="profile-container">
       <div className="header">
-        <button className="back-button">← back to home page</button>
+        <Link to="/home">
+          <button className="back-button">← back to home page</button>
+        </Link>
       </div>
 
       <div className="profile-card">
