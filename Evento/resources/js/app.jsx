@@ -24,7 +24,6 @@ const App = () => {
 
 export default App;
 
-// Rendering logic (moved to index.js or handled by Vite)
 
 if (document.getElementById('app')) {
     const root = ReactDOM.createRoot(document.getElementById('app'));
