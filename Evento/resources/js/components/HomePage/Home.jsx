@@ -17,7 +17,7 @@ function Home() {
   const menuItems = [
     { text: 'Home', link: '#home' },
     { text: 'Events', link: '#events' },
-    { text: 'Create Event', link: '#create' }
+    { text: 'Create Event', link: '/events' }
   ];
 
   const events = [

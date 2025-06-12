@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { jwtDecode } from 'jwt-decode'; // استيراد التصدير المدعوم
 import { pageService } from '../../api';
 import '../../components/create_Eve_css/form.css';
 
@@ -12,11 +13,22 @@ function CreateEventPage() {
     category_id: '',
     description: '',
     photo: '',
+    user_id: '', // أضف حقل user_id
   });
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // دالة لجلب user_id من التوكن
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      return decodedToken.sub || decodedToken.user_id; // استبدل باسم الحقل المناسب في التوكن
+    }
+    return null;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,8 +45,20 @@ function CreateEventPage() {
     setError(null);
     setSuccess(false);
 
+    const userId = getUserIdFromToken();
+    if (!userId) {
+      setError('يجب تسجيل الدخول أولاً.');
+      setIsLoading(false);
+      return;
+    }
+
+    const dataToSend = {
+      ...formData,
+      user_id: userId, // أضف user_id إلى البيانات المرسلة
+    };
+
     try {
-      const response = await pageService.createEvent(formData); // لا ترسل user_id
+      const response = await pageService.createEvent(dataToSend);
 
       if (response.success) {
         setSuccess(true);
@@ -47,6 +71,7 @@ function CreateEventPage() {
           category_id: '',
           description: '',
           photo: '',
+          user_id: '', // إعادة تعيين user_id
         });
       }
     } catch (err) {

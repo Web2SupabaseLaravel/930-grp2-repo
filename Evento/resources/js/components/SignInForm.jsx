@@ -65,7 +65,7 @@ const SignInForm = () => {
             setSuccess("Signed in successfully!");
             localStorage.setItem("token", response.data.token);
             setFormData({ email: "", password: "" });
-            navigate("/welcome");
+            navigate("/home");
         } catch (err) {
             setErrors({
                 api:

@@ -1,4 +1,6 @@
-namespace App\Http\Controllers\Api;
+<?php
+
+namespace App\Http\Controllers\ApiControllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,22 +14,21 @@ use App\Models\Category;
 class ProfileApiController extends Controller
 {
     // middleware auth
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-    }
-
+   
     // 1. Get profile data
     public function show()
     {
-        $user = Auth::user();
-
-        $profile = $user->profile;
+        $user = JWTAuth::parseToken()->authenticate();
+    
+        $profile = $user->profile ?: new Profile(); // إذا لم يكن هناك ملف شخصي، أنشئ كائنًا فارغًا
         $categories = Category::all('categories_name');
-
+    
         return response()->json([
             'user' => $user->only(['name', 'email']),
-            'profile' => $profile,
+            'profile' => [
+                'location' => $profile->location ?? 'N/A',
+                'phone' => $profile->phone ?? '+970 000 000 000',
+            ],
             'categories' => $categories
         ]);
     }

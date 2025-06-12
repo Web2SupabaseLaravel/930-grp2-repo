@@ -7,13 +7,13 @@ function Welcome() {
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) {
-            navigate("/sign-in");
+            navigate("/home");
         }
     }, [navigate]);
 
     const handleSignOut = () => {
         localStorage.removeItem("token");
-        navigate("/sign-in");
+        navigate("/home");
     };
 
     return (

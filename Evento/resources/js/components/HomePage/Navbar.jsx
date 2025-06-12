@@ -20,7 +20,7 @@ const NavigationBar = ({ menuItems }) => {
               {item.text}
             </Nav.Link>
           ))}
-          <Nav.Link href="#profile" className="ms-3">
+          <Nav.Link href="/profile" className="ms-3">
             <FaUserCircle className="profile-icon" />
           </Nav.Link>
         </Nav>
