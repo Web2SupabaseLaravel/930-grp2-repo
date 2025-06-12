@@ -7,6 +7,7 @@ import UserTable from './UserTable';
 import CreateUserForm from './CreateUserForm';
 import EditUserForm from './EditUserForm';
 import '../DashB_U_CSS/Dashboard.css';
+import NavigationBar from '../HomePage/Navbar';
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState('users');
@@ -72,7 +73,9 @@ function Dashboard() {
       setError('Error creating user');
     }
   };
-
+const menuItems = [
+    { text: 'Home', link: '/home' },
+  ];
   const handleEdit = async (userId) => {
     try {
       const response = await axios.get(`http://127.0.0.1:8000/api/DashBoard/${userId}`);
@@ -118,6 +121,9 @@ function Dashboard() {
   ];
 
   return (
+    <>
+  <NavigationBar menuItems={menuItems}  />
+
     <div className="dashboard">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="main-content">
@@ -157,7 +163,6 @@ function Dashboard() {
           />
         )}
 
-      
 
         {showEditUserForm && selectedUser && (
           <EditUserForm
@@ -171,6 +176,7 @@ function Dashboard() {
         )}
       </div>
     </div>
+    </>
   );
 }
 
