@@ -63,6 +63,7 @@ import Welcome from "./components/Welcome";
 
 import Home from './components/HomePage/Home';
 import CreateEventPage from './components/create-events/Create-EvPage';
+import DashBoard from './components/DashBoardUser/Dashboard';
 
 
 
@@ -78,6 +79,8 @@ const App = () => {
                 <Route path="/events" element={<CreateEventPage />} />
                 <Route path="/edit" element={<EditProfile />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/DashBoard" element={<DashBoard />} />
+
             </Routes>
         </Router>
     );
