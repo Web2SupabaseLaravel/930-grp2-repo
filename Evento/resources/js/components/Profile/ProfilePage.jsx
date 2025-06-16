@@ -13,8 +13,6 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem('token');
-      console.log('Token from localStorage:', token);
-
       if (!token) {
         setError('No token found. Please log in.');
         setLoading(false);
@@ -24,7 +22,6 @@ const ProfilePage = () => {
       try {
         const decodedToken = jwtDecode(token);
         const currentTime = Math.floor(Date.now() / 1000);
-        console.log('Decoded Token:', decodedToken);
         if (decodedToken.exp < currentTime) {
           setError('Token has expired. Please log in again.');
           setLoading(false);
@@ -39,12 +36,8 @@ const ProfilePage = () => {
 
       try {
         const profileRes = await axios.get('http://localhost:8000/api/profile', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
-        console.log('Profile Response:', profileRes.data); // سجل الاستجابة
-
         const data = profileRes.data;
         setProfile({
           name: data.user?.name || 'N/A',
@@ -52,12 +45,11 @@ const ProfilePage = () => {
           location: data.profile?.location || 'N/A',
           phone: data.profile?.phone || '+970 000 000 000',
         });
-
-        setCategories(Array.isArray(data.categories) ? data.categories : []);
+        setCategories(Array.isArray(data.categories) ? data.categories.map(cat => cat.categories_name || 'N/A') : []);
         setError(null);
       } catch (err) {
-        console.error('Error fetching data:', err.response ? err.response.data : err.message);
-        setError('Failed to fetch profile. Please check your authentication.');
+        console.error('Error fetching data:', err.response?.data || err.message);
+        setError(err.response?.data?.error || 'Failed to fetch profile. Please check your authentication.');
       } finally {
         setLoading(false);
       }
@@ -66,33 +58,41 @@ const ProfilePage = () => {
     fetchProfile();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p className="error-message">{error}</p>;
+  if (loading) return <p className="text-white text-center">Loading...</p>;
+  if (error) return <p className="text-white text-center">{error}</p>;
 
   return (
     <div className="profile-container">
       <div className="header">
         <Link to="/home">
-          <button className="back-button">← back to home page</button>
+          <button className="back-button">back to home page</button>
         </Link>
       </div>
 
       <div className="profile-card">
         {profile && (
           <>
-            <div className="profile-top">
-              <h2 className="profile-name">{profile.name}</h2>
+            <div className="profile-top d-flex justify-content-between align-items-center">
+              <h2 className="profile-name mb-0">{profile.name}</h2>
+              <button className="btn btn-primary edit-button">Edit</button>
             </div>
 
-            <div className="profile-details">
-              <div><label>Usern</label><input type="text" value={profile.name} disabled /></div>
-              <div><label>Location</label><input type="text" value={profile.location} disabled /></div>
-              <div><label>Email</label><input type="text" value={profile.email} disabled /></div>
-              <div><label>Interested</label><input type="text" value={Array.isArray(categories) ? categories.map(c => c.categories_name || 'N/A').join(', ') : 'N/A'} disabled /></div>
-              <div><label>Phone Number</label><input type="text" value={profile.phone} disabled /></div>
+            <div className="profile-details mt-4">
+              <div><label>Usern</label><input type="text" value={profile.name} disabled className="form-control" /></div>
+              <div><label>Location</label><input type="text" value={profile.location} disabled className="form-control" /></div>
+              <div><label>Email</label><input type="text" value={profile.email} disabled className="form-control" /></div>
+              <div><label>Interested</label><input type="text" value={categories.length > 0 ? categories.join(', ') : 'N/A'} disabled className="form-control" /></div>
+              <div><label>Phone Number</label><input type="text" value={profile.phone} disabled className="form-control" /></div>
             </div>
 
-            <button className="edit-button">Edit</button>
+            <div className="mt-4">
+              <h4>Booked Events</h4>
+              <div className="card p-3 text-center">
+                <img src="https://via.placeholder.com/100" alt="QR Code" className="mb-2" />
+                <p>Music - April 14, 2025 | 6:00PM</p>
+                <button className="btn btn-outline-secondary">Cancel Reservation</button>
+              </div>
+            </div>
           </>
         )}
       </div>

@@ -66,20 +66,7 @@ function EditUserForm({ user, onClose, onSave }) {
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="role">Role</label>
-            <select
-              name="role"
-              id="role"
-              value={formData.role}
-              onChange={handleChange}
-              required
-            >
-              <option value="Admin">Admin</option>
-              <option value="Organizer">Organizer</option>
-              <option value="Attendee">Attendee</option>
-            </select>
-          </div>
+
 
           <div className="form-actions">
             <button type="button" className="btn-cancel" onClick={onClose}>Cancel</button>

@@ -23,11 +23,16 @@ function Dashboard() {
   const [showEditUserForm, setShowEditUserForm] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
+  const token = localStorage.getItem('token');
+
   const fetchUsers = async () => {
     try {
       setIsLoading(true);
       const response = await axios.get('http://127.0.0.1:8000/api/DashBoard', {
-        params: searchTerm ? { search: searchTerm } : {}
+        params: searchTerm ? { search: searchTerm } : {},
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       if (response.data && response.data.success) {
         const userList = response.data.data.users || [];
@@ -63,7 +68,15 @@ function Dashboard() {
 
   const handleSaveUser = async (userData) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/DashBoard', userData);
+      const response = await axios.post(
+        'http://127.0.0.1:8000/api/DashBoard',
+        userData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
       if (response.data && response.data.success) {
         fetchUsers();
         setShowCreateUserForm(false);
@@ -75,7 +88,11 @@ function Dashboard() {
 
   const handleEdit = async (userId) => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/DashBoard/${userId}`);
+      const response = await axios.get(`http://127.0.0.1:8000/api/DashBoard/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (response.data && response.data.success) {
         setSelectedUser(response.data.data);
         setShowEditUserForm(true);
@@ -87,7 +104,15 @@ function Dashboard() {
 
   const handleUpdateUser = async (userId, updatedData) => {
     try {
-      const response = await axios.put(`http://127.0.0.1:8000/api/DashBoard/${userId}`, updatedData);
+      const response = await axios.put(
+        `http://127.0.0.1:8000/api/DashBoard/${userId}`,
+        updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
       if (response.data && response.data.success) {
         fetchUsers();
         setShowEditUserForm(false);
@@ -101,7 +126,14 @@ function Dashboard() {
   const handleDelete = async (userId) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        const response = await axios.delete(`http://127.0.0.1:8000/api/DashBoard/${userId}`);
+        const response = await axios.delete(
+          `http://127.0.0.1:8000/api/DashBoard/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
         if (response.data && response.data.success) {
           fetchUsers();
         }
@@ -156,8 +188,6 @@ function Dashboard() {
             onCreateUser={handleCreateUser}
           />
         )}
-
-      
 
         {showEditUserForm && selectedUser && (
           <EditUserForm

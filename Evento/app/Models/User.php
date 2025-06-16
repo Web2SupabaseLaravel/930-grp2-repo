@@ -59,6 +59,10 @@ public function profile()
     {
         return [];
     }
-
+    public function categories()
+    {
+        return $this->belongsToMany(Categories::class, 'user_interests_id', 'user_id', 'categories_id')
+                    ->withTimestamps();
+    }
 
 }

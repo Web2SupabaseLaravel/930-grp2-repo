@@ -2,22 +2,27 @@ import { useState } from 'react';
 import axios from 'axios';
 import React from 'react';
 
-function DeleteAccountForm() {
-  const [showModal, setShowModal] = useState(false);
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
+function UpdatePasswordForm() {
+  const [formData, setFormData] = useState({
+    current_password: '',
+    password: '',
+    password_confirmation: ''
+  });
+
   const [status, setStatus] = useState('');
+  const [errors, setErrors] = useState({});
 
-  const handleDelete = (e) => {
+  const handleChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = e => {
     e.preventDefault();
-
-    axios.delete('http://localhost:8000/api/profile', {
-      data: { password },
-    })
+    axios.put('http://localhost:8000/api/password/update', formData)
       .then(() => {
-        setStatus('deleted');
+        setStatus('password-updated');
         setErrors({});
-        // Redirect or logout user
+        setTimeout(() => setStatus(''), 2000);
       })
       .catch(err => {
         if (err.response?.data?.errors) {
@@ -27,72 +32,62 @@ function DeleteAccountForm() {
   };
 
   return (
-    <section className="space-y-6">
+    <section className="mb-4">
       <header>
-        <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-          Delete Account
-        </h2>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          Once your account is deleted, all of its resources and data will be permanently deleted. Please download any data you wish to retain.
-        </p>
+        <h2 className="h4 text-gray-900">Update Password</h2>
+        <p className="text-muted">Ensure your account is using a long, random password to stay secure.</p>
       </header>
 
-      <button
-        className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
-        onClick={() => setShowModal(true)}
-      >
-        Delete Account
-      </button>
-
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md shadow-lg">
-            <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-              Are you sure you want to delete your account?
-            </h2>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              Please enter your password to confirm deletion.
-            </p>
-
-            <form onSubmit={handleDelete} className="mt-4 space-y-4">
-              <input
-                type="password"
-                placeholder="Password"
-                className="w-full border rounded-md px-3 py-2 dark:bg-gray-700 dark:text-white"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {errors.password && (
-                <div className="text-red-500 text-sm">{errors.password[0]}</div>
-              )}
-
-              <div className="flex justify-end gap-4 mt-4">
-                <button
-                  type="button"
-                  className="px-4 py-2 bg-gray-300 dark:bg-gray-600 rounded-md"
-                  onClick={() => setShowModal(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-                >
-                  Delete Account
-                </button>
-              </div>
-            </form>
-          </div>
+      <form onSubmit={handleSubmit} className="mt-4">
+        <div className="mb-3">
+          <label htmlFor="current_password" className="form-label">Current Password</label>
+          <input
+            id="current_password"
+            name="current_password"
+            type="password"
+            className="form-control"
+            autoComplete="current-password"
+            value={formData.current_password}
+            onChange={handleChange}
+          />
+          {errors.current_password && <div className="text-danger mt-1">{errors.current_password[0]}</div>}
         </div>
-      )}
 
-      {status === 'deleted' && (
-        <p className="text-sm text-green-600 dark:text-green-400">
-          Account deleted.
-        </p>
-      )}
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">New Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            className="form-control"
+            autoComplete="new-password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          {errors.password && <div className="text-danger mt-1">{errors.password[0]}</div>}
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="password_confirmation" className="form-label">Confirm Password</label>
+          <input
+            id="password_confirmation"
+            name="password_confirmation"
+            type="password"
+            className="form-control"
+            autoComplete="new-password"
+            value={formData.password_confirmation}
+            onChange={handleChange}
+          />
+          {errors.password_confirmation && <div className="text-danger mt-1">{errors.password_confirmation[0]}</div>}
+        </div>
+
+        <button type="submit" className="btn btn-primary">Save</button>
+        {status === 'password-updated' && (
+          <p className="text-success mt-2">Saved.</p>
+        )}
+      </form>
     </section>
   );
 }
 
-export default DeleteAccountForm;
+export default UpdatePasswordForm;

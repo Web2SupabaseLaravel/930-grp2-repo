@@ -7,30 +7,44 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
 use App\Models\Profile;
-use App\Models\Category;
+use App\Models\Categories;
 
 class ProfileApiController extends Controller
 {
-    // middleware auth
-   
-    // 1. Get profile data
-    public function show()
+    public function index(Request $request)
     {
-        $user = JWTAuth::parseToken()->authenticate();
-    
-        $profile = $user->profile ?: new Profile(); // إذا لم يكن هناك ملف شخصي، أنشئ كائنًا فارغًا
-        $categories = Category::all('categories_name');
-    
-        return response()->json([
-            'user' => $user->only(['name', 'email']),
-            'profile' => [
-                'location' => $profile->location ?? 'N/A',
-                'phone' => $profile->phone ?? '+970 000 000 000',
-            ],
-            'categories' => $categories
-        ]);
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+        
+            $profile = $user->profile ?? new Profile(); 
+            
+            $categories = [];
+            if (class_exists('App\Models\Categories')) {
+                $categories = Categories::whereNotNull('categories_name')
+                                      ->where('categories_name', '!=', '')
+                                      ->select('categories_name')
+                                      ->get()
+                                      ->pluck('categories_name')
+                                      ->toArray();
+            }
+
+            return response()->json([
+                'user' => $user->only(['name', 'email']),
+                'profile' => [
+                    'location' => optional($profile)->location ?? 'N/A',
+                    'phone' => optional($profile)->phone ?? '+970 000 000 000',
+                ],
+                'categories' => $categories
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Error in ProfileApiController@index: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'Failed to fetch profile data. Please try again later.',
+            ], 500);
+        }
     }
 
     // 2. Update profile info
@@ -51,11 +65,14 @@ class ProfileApiController extends Controller
             'email' => $validated['email'],
         ]);
 
-        $user->profile()->update([
-            'location' => $validated['location'] ?? null,
-            'photo' => $validated['photo'] ?? null,
-            'role' => $validated['role'],
-        ]);
+        $user->profile()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'location' => $validated['location'] ?? null,
+                'photo' => $validated['photo'] ?? null,
+                'role' => $validated['role'],
+            ]
+        );
 
         return response()->json(['message' => 'Profile updated successfully']);
     }

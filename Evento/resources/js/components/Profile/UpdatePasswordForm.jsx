@@ -32,74 +32,59 @@ function UpdatePasswordForm() {
   };
 
   return (
-    <section>
+    <section className="mb-4">
       <header>
-        <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Update Password</h2>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          Ensure your account is using a long, random password to stay secure.
-        </p>
+        <h2 className="h4 text-gray-900">Update Password</h2>
+        <p className="text-muted">Ensure your account is using a long, random password to stay secure.</p>
       </header>
 
-      <form onSubmit={handleSubmit} className="mt-6 space-y-6">
-        <div>
-          <label htmlFor="current_password" className="block font-medium text-sm text-gray-700 dark:text-gray-200">
-            Current Password
-          </label>
+      <form onSubmit={handleSubmit} className="mt-4">
+        <div className="mb-3">
+          <label htmlFor="current_password" className="form-label">Current Password</label>
           <input
             id="current_password"
             name="current_password"
             type="password"
-            className="mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white"
+            className="form-control"
             autoComplete="current-password"
             value={formData.current_password}
             onChange={handleChange}
           />
-          {errors.current_password && <div className="text-red-500 text-sm mt-1">{errors.current_password[0]}</div>}
+          {errors.current_password && <div className="text-danger mt-1">{errors.current_password[0]}</div>}
         </div>
 
-        <div>
-          <label htmlFor="password" className="block font-medium text-sm text-gray-700 dark:text-gray-200">
-            New Password
-          </label>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">New Password</label>
           <input
             id="password"
             name="password"
             type="password"
-            className="mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white"
+            className="form-control"
             autoComplete="new-password"
             value={formData.password}
             onChange={handleChange}
           />
-          {errors.password && <div className="text-red-500 text-sm mt-1">{errors.password[0]}</div>}
+          {errors.password && <div className="text-danger mt-1">{errors.password[0]}</div>}
         </div>
 
-        <div>
-          <label htmlFor="password_confirmation" className="block font-medium text-sm text-gray-700 dark:text-gray-200">
-            Confirm Password
-          </label>
+        <div className="mb-3">
+          <label htmlFor="password_confirmation" className="form-label">Confirm Password</label>
           <input
             id="password_confirmation"
             name="password_confirmation"
             type="password"
-            className="mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white"
+            className="form-control"
             autoComplete="new-password"
             value={formData.password_confirmation}
             onChange={handleChange}
           />
-          {errors.password_confirmation && (
-            <div className="text-red-500 text-sm mt-1">{errors.password_confirmation[0]}</div>
-          )}
+          {errors.password_confirmation && <div className="text-danger mt-1">{errors.password_confirmation[0]}</div>}
         </div>
 
-        <div className="flex items-center gap-4">
-          <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
-            Save
-          </button>
-
-          {status === 'password-updated' && (
-            <p className="text-sm text-green-600 dark:text-green-400">Saved.</p>
-          )}
-        </div>
+        <button type="submit" className="btn btn-primary">Save</button>
+        {status === 'password-updated' && (
+          <p className="text-success mt-2">Saved.</p>
+        )}
       </form>
     </section>
   );

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\Category;
+use App\Models\Categories;
 class UserInterstsId extends Model
 {
     public $timestamps = false;
@@ -23,7 +23,7 @@ class UserInterstsId extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function category()
+    public function categories()
     {
         return $this->belongsTo(Categories::class, 'categorie_id');
     }

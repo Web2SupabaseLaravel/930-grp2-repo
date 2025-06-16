@@ -5,18 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import axios from 'axios';
 import './EditProfile.css';
+
 function EditProfile() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSave = () => {
     navigate('/profile');
   };
-  return (
 
-    <div className="space-y-6">
+  return (
+    <div className="edit-profile container mt-4">
       <UpdateProfileForm />
       <UpdatePasswordForm />
       <DeleteAccountForm />
+      <button onClick={handleSave} className="btn btn-primary mt-4">Save</button>
     </div>
   );
 }

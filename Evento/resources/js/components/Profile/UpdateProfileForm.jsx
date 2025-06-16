@@ -7,7 +7,6 @@ function UpdateProfileForm() {
   const [status, setStatus] = useState('');
   const [errors, setErrors] = useState({});
 
-  // استدعاء البيانات المبدئية (مثلاً من API أو من props)
   useEffect(() => {
     axios.get('http://localhost:8000/api/userprofile')
       .then(res => {
@@ -39,55 +38,45 @@ function UpdateProfileForm() {
   };
 
   return (
-    <section>
+    <section className="mb-4">
       <header>
-        <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Profile Information</h2>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          Update your account's profile information and email address.
-        </p>
+        <h2 className="h4 text-gray-900">Profile Information</h2>
+        <p className="text-muted">Update your account's profile information and email address.</p>
       </header>
 
-      <form onSubmit={handleSubmit} className="mt-6 space-y-6">
-        <div>
-          <label htmlFor="name" className="block font-medium text-sm text-gray-700 dark:text-gray-200">Name</label>
+      <form onSubmit={handleSubmit} className="mt-4">
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">Name</label>
           <input
             id="name"
             name="name"
             type="text"
             required
-            className="mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white"
+            className="form-control"
             value={formData.name}
             onChange={handleChange}
           />
-          {errors.name && <div className="text-red-500 text-sm mt-1">{errors.name[0]}</div>}
+          {errors.name && <div className="text-danger mt-1">{errors.name[0]}</div>}
         </div>
 
-        <div>
-          <label htmlFor="email" className="block font-medium text-sm text-gray-700 dark:text-gray-200">Email</label>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email</label>
           <input
             id="email"
             name="email"
             type="email"
             required
-            className="mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-700 dark:text-white"
+            className="form-control"
             value={formData.email}
             onChange={handleChange}
           />
-          {errors.email && <div className="text-red-500 text-sm mt-1">{errors.email[0]}</div>}
+          {errors.email && <div className="text-danger mt-1">{errors.email[0]}</div>}
         </div>
 
-        <div className="flex items-center gap-4">
-          <button
-            type="submit"
-            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
-          >
-            Save
-          </button>
-
-          {status === 'profile-updated' && (
-            <p className="text-sm text-green-600 dark:text-green-400">Saved.</p>
-          )}
-        </div>
+        <button type="submit" className="btn btn-primary">Save</button>
+        {status === 'profile-updated' && (
+          <p className="text-success mt-2">Saved.</p>
+        )}
       </form>
     </section>
   );

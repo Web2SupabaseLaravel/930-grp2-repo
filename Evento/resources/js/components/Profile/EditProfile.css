@@ -1,23 +1,28 @@
 .edit-profile {
-    background-color: #f8f9fa; /* لون خلفية فاتح */
-    border-radius: 10px;
+    background: #ffffff;
+    border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.edit-profile h1 {
-    color: #6c757d; /* لون العنوان */
-}
-
-.edit-profile .form-control {
-    border: 1px solid #70505b; /* لون الحدود */
-}
-
-.edit-profile .btn-primary {
-    background-color: #47030c; /* لون زر الحفظ */
-    border-color: #6c757d; /* لون الحدود */
-}
-
-.edit-profile .btn-primary:hover {
-    background-color: #5a6268; /* لون الزر عند التحويم */
-}
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 800px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .edit-profile .form-control {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .edit-profile .btn-primary {
+    background-color: #9333ea;
+    border-color: #9333ea;
+    color: white;
+  }
+  
+  .edit-profile .btn-primary:hover {
+    background-color: #6b21a8;
+    border-color: #6b21a8;
+  }

@@ -6,7 +6,7 @@ export const getUserProfile = async () => {
   const token = localStorage.getItem('token');
   if (!token) throw new Error('No token found in localStorage');
 
-  const response = await axios.get('/api/user/profile', {
+  const response = await axios.get('/api/profile', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
