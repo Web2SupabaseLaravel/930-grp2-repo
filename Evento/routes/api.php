@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [JWTAuthController::class, 'register']);
 Route::post('login', [JWTAuthController::class, 'login']);
 
-Route::prefix('api')->middleware('jwt')->group(function () {
+Route::middleware('jwt')->group(function () {
    
     Route::resource('/profile',ProfileApiController::class);
 
@@ -28,12 +28,13 @@ Route::prefix('api')->middleware('jwt')->group(function () {
     Route::resource('role-requests', RoleRequestApiController::class);
     Route::get('/role-requests', [RoleRequestApiController::class, 'index']);
     Route::put('/role-requests/{id}', [RoleRequestApiController::class, 'update']);
+    Route::resource('feedback', EventFeedbackApiController::class);
+    Route::resource('events', CreateEventApi::class);
+    Route::get('/events', [CreateEventApi::class, 'index']); 
+    Route::put('/events/{id}', [CreateEventApi::class, 'update']);
 });
 
-Route::resource('feedback', EventFeedbackApiController::class);
 
-Route::resource('events', CreateEventApi::class);
-Route::get('/events', [CreateEventApi::class, 'index']); 
-Route::put('/events/{id}', [CreateEventApi::class, 'update']);
+
 
 Route::resource('/DashBoard', DashBoardUserApi::class);

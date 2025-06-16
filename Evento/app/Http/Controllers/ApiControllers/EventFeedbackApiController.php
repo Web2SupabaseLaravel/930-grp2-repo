@@ -72,7 +72,7 @@ class EventFeedbackApiController extends Controller
 
         $feedback = new EventFeedback();
         $feedback->event_id = $request->event_id;
-        // هنا ما في user_id لأن مافيش تسجيل دخول
+        $feedback->user_id = auth()->id();
         $feedback->comment = $request->comment;
         $feedback->rating = $request->rating;
         $feedback->save();
