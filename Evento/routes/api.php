@@ -32,9 +32,9 @@ Route::middleware('jwt')->group(function () {
     Route::resource('events', CreateEventApi::class);
     Route::get('/events', [CreateEventApi::class, 'index']); 
     Route::put('/events/{id}', [CreateEventApi::class, 'update']);
+    Route::resource('/DashBoard', DashBoardUserApi::class);
 });
 
 
 
 
-Route::resource('/DashBoard', DashBoardUserApi::class);

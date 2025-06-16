@@ -9,18 +9,29 @@ const EventList = ({ title }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/events")
-      .then(res => {
-        const fetchedEvents = res.data?.data?.data || [];
+    const fetchEvents = async () => {
+      setLoading(true);
+
+      try {
+        const token = localStorage.getItem('token'); 
+        const response = await axios.get("http://127.0.0.1:8000/api/events", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const fetchedEvents = response.data?.data?.data || [];
         console.log("Fetched events:", fetchedEvents);
         setEvents(fetchedEvents);
-        setLoading(false);
-      })
-      .catch(err => {
+      } catch (err) {
         console.error("Error fetching events:", err);
         setError("حدث خطأ أثناء تحميل الأحداث");
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchEvents();
   }, []);
 
   return (

@@ -5,15 +5,14 @@ function EditUserForm({ user, onClose, onSave }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    role: ''
   });
 
   useEffect(() => {
     if (user) {
       setFormData({
         name: user.name || '',
-        email: user.email || '',
-        role: user.role || 'Attendee'
+        email: user.email || ''
+    
       });
     }
   }, [user]);
@@ -28,7 +27,7 @@ function EditUserForm({ user, onClose, onSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.role) return;
+    if (!formData.name || !formData.email) return;
     onSave(user.id, formData);
   };
 
@@ -66,20 +65,6 @@ function EditUserForm({ user, onClose, onSave }) {
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="role">Role</label>
-            <select
-              name="role"
-              id="role"
-              value={formData.role}
-              onChange={handleChange}
-              required
-            >
-              <option value="Admin">Admin</option>
-              <option value="Organizer">Organizer</option>
-              <option value="Attendee">Attendee</option>
-            </select>
-          </div>
 
           <div className="form-actions">
             <button type="button" className="btn-cancel" onClick={onClose}>Cancel</button>
