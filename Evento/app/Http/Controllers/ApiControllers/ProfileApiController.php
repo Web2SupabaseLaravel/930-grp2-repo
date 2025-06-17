@@ -36,6 +36,7 @@ class ProfileApiController extends Controller
                 'profile' => [
                     'location' => optional($profile)->location ?? 'N/A',
                     'phone' => optional($profile)->phone ?? '+970 000 000 000',
+                    'role' => optional($profile)->role ?? 'N/A'
                 ],
                 'categories' => $categories
             ]);

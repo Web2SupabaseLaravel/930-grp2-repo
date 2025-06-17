@@ -28,6 +28,7 @@ Route::middleware('jwt')->group(function () {
     Route::resource('role-requests', RoleRequestApiController::class);
     Route::get('/role-requests', [RoleRequestApiController::class, 'index']);
     Route::put('/role-requests/{id}', [RoleRequestApiController::class, 'update']);
+    Route::post('rolerequest', [RoleRequestApiController::class, 'store']);
     Route::resource('feedback', EventFeedbackApiController::class);
 
 Route::resource('events', CreateEventApi::class);
