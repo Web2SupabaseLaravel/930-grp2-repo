@@ -69,14 +69,14 @@ class EventFeedbackApiController extends Controller
             'rating.min' => 'Rating must be at least 1 star',
             'rating.max' => 'Rating cannot exceed 5 stars',
         ]);
-
+    
         $feedback = new EventFeedback();
         $feedback->event_id = $request->event_id;
-        // هنا ما في user_id لأن مافيش تسجيل دخول
+        $feedback->user_id = auth()->user()->id; 
         $feedback->comment = $request->comment;
         $feedback->rating = $request->rating;
         $feedback->save();
-
+    
         return response()->json([
             'status' => 'success',
             'message' => 'Feedback submitted successfully!',
@@ -103,27 +103,32 @@ class EventFeedbackApiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'event_id' => 'required|exists:event,id',
-            'comment' => 'nullable|string',
-            'rating' => 'required|numeric|min:1|max:5',
-        ]);
+public function update(Request $request, string $id)
+{
+    $request->validate([
+        'event_id' => 'required|exists:event,id',
+        'comment' => 'nullable|string',
+        'rating' => 'required|numeric|min:1|max:5',
+    ]);
 
-        $feedback = EventFeedback::findOrFail($id);
-        $feedback->event_id = $request->event_id;
-        $feedback->comment = $request->comment;
-        $feedback->rating = $request->rating;
-        $feedback->save();
-
+    $feedback = EventFeedback::findOrFail($id);
+    if ($feedback->user_id !== auth()->user()->id) {
         return response()->json([
-            'status' => 'success',
-            'message' => 'Feedback updated successfully',
-            'data' => $feedback
-        ]);
+            'status' => 'error',
+            'message' => 'You are not authorized to update this feedback'
+        ], 403);
     }
 
+    $feedback->event_id = $request->event_id;
+    $feedback->comment = $request->comment;
+    $feedback->rating = $request->rating;
+    $feedback->save();
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Feedback updated successfully',
+        'data' => $feedback
+    ]);}
     /**
      * Remove the specified resource from storage.
      */
