@@ -26,8 +26,8 @@ function Home() {
 
   const menuItems = [
     { text: 'Home', link: '/home' },
-    { text: 'DashBoard', link: '/DashBoard' },
     { text: 'Create Event', link: '/events' }
+    // Dashboard سيتم إضافته ديناميكيًا في Navbar.jsx بناءً على الرول
   ];
 
   const events = [

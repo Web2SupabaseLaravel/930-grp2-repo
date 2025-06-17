@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import { pageService } from '../../api';
+import axios from 'axios';
 import '../../components/create_Eve_css/form.css';
 
 function CreateEventPage() {
@@ -21,6 +22,7 @@ function CreateEventPage() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false); // حالة للتحقق من الرول
 
   // دالة لجلب user_id من التوكن
   const getUserIdFromToken = () => {
@@ -31,6 +33,36 @@ function CreateEventPage() {
     }
     return null;
   };
+
+  // التحقق من الرول عند التحميل
+  useEffect(() => {
+    const checkAuthorization = async () => {
+      const userId = getUserIdFromToken();
+      if (!userId) {
+        setError('يجب تسجيل الدخول أولاً.');
+        return;
+      }
+
+      const token = localStorage.getItem('token');
+      try {
+        const response = await axios.get('http://localhost:8000/api/profile', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const role = response.data.profile?.role;
+        if (['admin', 'organizer'].includes(role)) {
+          setIsAuthorized(true);
+        } else {
+          setError(
+            'you cant create an event, because youre not Admin or Organizer, you can request changing your role from your profile'
+          );
+        }
+      } catch (err) {
+        setError('فشل في التحقق من الرول.');
+      }
+    };
+
+    checkAuthorization();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +88,7 @@ function CreateEventPage() {
 
     const dataToSend = {
       ...formData,
-      user_id: userId, // أضف user_id إلى البيانات المرسلة
+      user_id: userId,
     };
 
     try {
@@ -73,7 +105,7 @@ function CreateEventPage() {
           category_id: '',
           description: '',
           photo: '',
-          user_id: '', // إعادة تعيين user_id
+          user_id: '',
         });
         
         setTimeout(() => {
@@ -105,109 +137,111 @@ function CreateEventPage() {
         {success && <div className="success-message">Event created successfully!</div>}
         {isLoading && <div className="loading-message">Creating event...</div>}
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="event_name">Name Event</label>
-          <input
-            type="text"
-            id="event_name"
-            name="event_name"
-            value={formData.event_name}
-            onChange={handleChange}
-            required
-          />
+        {isAuthorized ? (
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="event_name">Name Event</label>
+            <input
+              type="text"
+              id="event_name"
+              name="event_name"
+              value={formData.event_name}
+              onChange={handleChange}
+              required
+            />
 
-          <label htmlFor="date">Date & Time 🗓</label>
-          <input
-            type="datetime-local"
-            id="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            required
-          />
+            <label htmlFor="date">Date & Time 🗓</label>
+            <input
+              type="datetime-local"
+              id="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              required
+            />
 
-          <label htmlFor="price">Price $</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            step="0.01"
-            min="0"
-            required
-          />
+            <label htmlFor="price">Price $</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              step="0.01"
+              min="0"
+              required
+            />
 
-          <label htmlFor="number_of_ticket">Number of Tickets 🧾</label>
-          <input
-            type="number"
-            id="number_of_ticket"
-            name="number_of_ticket"
-            value={formData.number_of_ticket}
-            onChange={handleChange}
-            min="1"
-            required
-          />
+            <label htmlFor="number_of_ticket">Number of Tickets 🧾</label>
+            <input
+              type="number"
+              id="number_of_ticket"
+              name="number_of_ticket"
+              value={formData.number_of_ticket}
+              onChange={handleChange}
+              min="1"
+              required
+            />
 
-          <label htmlFor="address">Address 📍</label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-          />
+            <label htmlFor="address">Address 📍</label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              required
+            />
 
-          <label htmlFor="category_id">Event Category 📋</label>
-          <select
-            id="category_id"
-            name="category_id"
-            value={formData.category_id}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Category</option>
-            <option value="1">Music</option>
-            <option value="2">Sports</option>
-            <option value="3">Workshop</option>
-            <option value="4">Other</option>
-          </select>
+            <label htmlFor="category_id">Event Category 📋</label>
+            <select
+              id="category_id"
+              name="category_id"
+              value={formData.category_id}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Category</option>
+              <option value="1">Music</option>
+              <option value="2">Sports</option>
+              <option value="3">Workshop</option>
+              <option value="4">Other</option>
+            </select>
 
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows="3"
-            required
-          ></textarea>
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows="3"
+              required
+            ></textarea>
 
-          <label htmlFor="photo">Image URL 🖼</label>
-          <input
-            type="url"
-            id="photo"
-            name="photo"
-            value={formData.photo}
-            onChange={handleChange}
-            placeholder="https://example.com/image.jpg"
-            required
-          />
-          {formData.photo && (
-            <div className="image-preview">
-              <img
-                src={formData.photo}
-                alt="Event Preview"
-                style={{ maxWidth: '200px' }}
-              />
-            </div>
-          )}
+            <label htmlFor="photo">Image URL 🖼</label>
+            <input
+              type="url"
+              id="photo"
+              name="photo"
+              value={formData.photo}
+              onChange={handleChange}
+              placeholder="https://example.com/image.jpg"
+              required
+            />
+            {formData.photo && (
+              <div className="image-preview">
+                <img
+                  src={formData.photo}
+                  alt="Event Preview"
+                  style={{ maxWidth: '200px' }}
+                />
+              </div>
+            )}
 
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Creating...' : 'Create Event'}
-          </button>
-        </form>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'Creating...' : 'Create Event'}
+            </button>
+          </form>
+        ) : null}
       </div>
     </div>
   );

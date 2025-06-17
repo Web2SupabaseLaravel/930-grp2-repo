@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiControllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CreateEventApi extends Controller
 {
@@ -37,6 +38,15 @@ class CreateEventApi extends Controller
 
     public function store(Request $request)
     {
+        // التحقق من التوثيق وجلب الرول
+        $user = Auth::user();
+        if (!$user || !in_array($user->profile->role ?? 'attendee', ['admin', 'organizer'])) {
+            return response()->json([
+                'success' => false,
+                'message' => 'غير مصرح لك بإنشاء الحدث. يجب أن تكون admin أو organizer.',
+            ], 403);
+        }
+
         $validatedData = $request->validate([
             'event_name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
