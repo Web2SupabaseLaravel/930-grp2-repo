@@ -4,8 +4,7 @@ import '../DashB_U_CSS/CreateUserForm.css';
 function EditUserForm({ user, onClose, onSave }) {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    role: ''
+    email: ''
   });
 
   useEffect(() => {
@@ -13,7 +12,6 @@ function EditUserForm({ user, onClose, onSave }) {
       setFormData({
         name: user.name || '',
         email: user.email || '',
-        role: user.role || 'Attendee'
       });
     }
   }, [user]);
@@ -28,7 +26,7 @@ function EditUserForm({ user, onClose, onSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.role) return;
+    if (!formData.name || !formData.email ) return;
     onSave(user.id, formData);
   };
 

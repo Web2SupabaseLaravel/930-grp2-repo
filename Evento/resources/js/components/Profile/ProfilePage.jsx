@@ -92,7 +92,7 @@ const ProfilePage = () => {
     <div className="profile-container">
       <div className="header">
         <Link to="/home">
-          <button className="back-button">back to home page</button>
+          <button className="osaid-button">Home</button>
         </Link>
       </div>
 

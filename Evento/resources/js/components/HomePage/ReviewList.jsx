@@ -18,43 +18,43 @@ const ReviewList = () => {
 
   const [submitting, setSubmitting] = useState(false);
 
-useEffect(() => {
-  const token = localStorage.getItem('token');
-  console.log('Token used:', token);
-  if (token) {
-    axios.get('http://127.0.0.1:8000/api/feedback', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(res => {
-      console.log('API Response:', res.data);
-      if (res.data.status === 'success') {
-        const mapped = res.data.data.map(item => ({
-          id: item.id,
-          event_id: item.event_id,
-          title: item.event?.event_name || 'No Title',
-          rating: item.rating,
-          review: item.comment,
-          author: item.user?.name || 'osaid'
-        }));
-        setReviews(mapped);
-      } else {
-        setError('Failed to load feedback');
-      }
-    })
-    .catch(err => {
-      setError('Error fetching feedback');
-      console.error('Error:', err);
-      if (err.response && err.response.status === 401) {
-        localStorage.removeItem('token');
-        window.location.href = '/sign-in';
-      }
-    })
-    .finally(() => setLoading(false));
-  } else {
-    setError('Please log in first');
-    window.location.href = '/sign-in';
-  }
-}, []);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log('Token used:', token);
+    if (token) {
+      axios.get('http://127.0.0.1:8000/api/feedback', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(res => {
+        console.log('API Response:', res.data);
+        if (res.data.status === 'success') {
+          const mapped = res.data.data.map(item => ({
+            id: item.id,
+            event_id: item.event_id,
+            title: item.event?.event_name || 'No Title',
+            rating: item.rating,
+            review: item.comment,
+            author: item.user?.name || 'osaid'
+          }));
+          setReviews(mapped);
+        } else {
+          setError('Failed to load feedback');
+        }
+      })
+      .catch(err => {
+        setError('Error fetching feedback');
+        console.error('Error:', err);
+        if (err.response && err.response.status === 401) {
+          localStorage.removeItem('token');
+          window.location.href = '/sign-in';
+        }
+      })
+      .finally(() => setLoading(false));
+    } else {
+      setError('Please log in first');
+      window.location.href = '/sign-in';
+    }
+  }, []);
 
   const renderStars = (rating) => (
     <div className="stars-container">
@@ -206,7 +206,7 @@ useEffect(() => {
   };
 
   if (loading) return (
-    <div className="loading-container">
+    <div className="loading-container" data-aos="fade-in">
       <div className="loading-spinner"></div>
       <p>Loading reviews...</p>
     </div>
@@ -214,17 +214,21 @@ useEffect(() => {
 
   return (
     <div className="reviews-container">
-      <h2 className="reviews-title">User Reviews</h2>
+      <h2 className="reviews-title" data-aos="fade-down">User Reviews</h2>
 
-      <button className="toggle-form-btn" onClick={() => {
-        resetForm();
-        setShowForm(prev => !prev);
-      }}>
+      <button
+        className="toggle-form-btn"
+        onClick={() => {
+          resetForm();
+          setShowForm(prev => !prev);
+        }}
+        data-aos="fade-up"
+      >
         {showForm ? 'Cancel' : 'Add Review'}
       </button>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="review-form">
+        <form onSubmit={handleSubmit} className="review-form" data-aos="zoom-in">
           <input
             type="number"
             name="event_id"
@@ -251,11 +255,16 @@ useEffect(() => {
         </form>
       )}
 
-      {error && <p className="error-message">{error}</p>}
+      {error && <p className="error-message" data-aos="fade-in">{error}</p>}
 
       <div className="reviews-grid">
         {reviews.map((review, index) => (
-          <div key={index} className="review-card">
+          <div
+            key={index}
+            className="review-card"
+            data-aos="fade-up"
+            data-aos-delay={`${index * 100}`}
+          >
             <div className="review-header">
               <h3>{review.title}</h3>
               {renderStars(review.rating)}
