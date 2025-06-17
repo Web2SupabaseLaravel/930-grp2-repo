@@ -8,21 +8,21 @@
     position: relative;
     z-index: 1;
   }
-  
+
   .edit-profile .form-control {
     border: 1px solid #ccc;
     border-radius: 6px;
     background-color: #f9f9f9;
     color: #333;
   }
-  
+
   .edit-profile .btn-primary {
-    background-color: #9333ea;
-    border-color: #9333ea;
+    background-color: #68263D;
+    border-color: #68263D;
     color: white;
   }
-  
+
   .edit-profile .btn-primary:hover {
-    background-color: #6b21a8;
-    border-color: #6b21a8;
+    background-color: #68263D;
+    border-color: #68263D;
   }

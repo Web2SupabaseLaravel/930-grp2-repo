@@ -72,13 +72,13 @@ const ProfilePage = () => {
       <div className="profile-card">
         {profile && (
           <>
-            <div className="profile-top d-flex justify-content-between align-items-center">
+            <div  className="profile-top d-flex justify-content-between align-items-center">
               <h2 className="profile-name mb-0">{profile.name}</h2>
-              <button className="btn btn-primary edit-button">Edit</button>
+              <Link to="/edit"><button className="btn btn-primary edit-button">Edit</button></Link>
             </div>
 
             <div className="profile-details mt-4">
-              <div><label>Usern</label><input type="text" value={profile.name} disabled className="form-control" /></div>
+              <div><label>Username</label><input type="text" value={profile.name} disabled className="form-control" /></div>
               <div><label>Location</label><input type="text" value={profile.location} disabled className="form-control" /></div>
               <div><label>Email</label><input type="text" value={profile.email} disabled className="form-control" /></div>
               <div><label>Interested</label><input type="text" value={categories.length > 0 ? categories.join(', ') : 'N/A'} disabled className="form-control" /></div>
@@ -88,7 +88,7 @@ const ProfilePage = () => {
             <div className="mt-4">
               <h4>Booked Events</h4>
               <div className="card p-3 text-center">
-                <img src="https://via.placeholder.com/100" alt="QR Code" className="mb-2" />
+                 <img  className="qr" src="https://api.qrserver.com/v1/create-qr-code/?data=MusicEvent" alt="QR" />
                 <p>Music - April 14, 2025 | 6:00PM</p>
                 <button className="btn btn-outline-secondary">Cancel Reservation</button>
               </div>
