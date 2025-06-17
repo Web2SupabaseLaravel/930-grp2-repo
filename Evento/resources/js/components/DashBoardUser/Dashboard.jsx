@@ -7,6 +7,7 @@ import UserTable from './UserTable';
 import CreateUserForm from './CreateUserForm';
 import EditUserForm from './EditUserForm';
 import '../DashB_U_CSS/Dashboard.css';
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState('users');
@@ -40,7 +41,7 @@ function Dashboard() {
         setStats({
           totalUsers: userList.length,
           totalEvents: response.data.data.total_events || 0,
-          pendingRequests: 5 
+          pendingRequests: 5
         });
         setError(null);
       } else {
@@ -150,9 +151,19 @@ function Dashboard() {
   ];
 
   return (
+    
     <div className="dashboard">
+      
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="main-content">
+      <div className="link-button-container">
+          <Link
+            to="/home" 
+            className="custom-link-button"
+          >
+            Home
+          </Link>
+        </div>
         <Header />
 
         {error && <div className="error-message">{error}</div>}
@@ -177,6 +188,8 @@ function Dashboard() {
             className="search-input"
           />
         </div>
+
+        
 
         {isLoading ? (
           <div className="loading">Loading...</div>

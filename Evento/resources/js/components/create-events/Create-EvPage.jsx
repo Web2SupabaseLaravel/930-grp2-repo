@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { pageService } from '../../api';
 import axios from 'axios';
 import '../../components/create_Eve_css/form.css';
@@ -22,19 +22,17 @@ function CreateEventPage() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(false); // حالة للتحقق من الرول
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
-  // دالة لجلب user_id من التوكن
   const getUserIdFromToken = () => {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwtDecode(token);
-      return decodedToken.sub || decodedToken.user_id; // استبدل باسم الحقل المناسب في التوكن
+      return decodedToken.sub || decodedToken.user_id;
     }
     return null;
   };
 
-  // التحقق من الرول عند التحميل
   useEffect(() => {
     const checkAuthorization = async () => {
       const userId = getUserIdFromToken();
@@ -107,7 +105,7 @@ function CreateEventPage() {
           photo: '',
           user_id: '',
         });
-        
+
         setTimeout(() => {
           navigate('/home');
         }, 5000);
@@ -131,6 +129,11 @@ function CreateEventPage() {
   return (
     <div className="create-event-container">
       <div className="form-box">
+        
+        <div className="back-button">
+          <Link to="/home" className="custom-back-link">← Home</Link>
+        </div>
+
         <h2 className="form-title">Create a New Event</h2>
 
         {error && <div className="error-message">{error}</div>}
