@@ -99,20 +99,24 @@ const ProfilePage = () => {
       <div className="profile-card">
         {profile && (
           <>
-            <div className="profile-top d-flex justify-content-between align-items-center">
-              <h2 className="profile-name mb-0">{profile.name}</h2>
-              <Link to="/edit"><button className="btn btn-primary edit-button">Edit</button></Link>
-              <button className="btn btn-warning" onClick={() => setShowModal(true)}>Request Role Change</button>
-            </div>
+          <div className="profile-top d-flex justify-content-between align-items-center">
+  <h2 className="profile-name mb-0">{profile.name}</h2>
+</div>
 
-            <div className="profile-details mt-4">
-              <div><label>Username</label><input type="text" value={profile.name} disabled className="form-control" /></div>
-              <div><label>Location</label><input type="text" value={profile.location} disabled className="form-control" /></div>
-              <div><label>Email</label><input type="text" value={profile.email} disabled className="form-control" /></div>
-              <div><label>Interested</label><input type="text" value={categories.length > 0 ? categories.join(', ') : 'N/A'} disabled className="form-control" /></div>
-              <div><label>Phone Number</label><input type="text" value={profile.phone} disabled className="form-control" /></div>
-              <div><label>Role</label><input type="text" value={profile.role} disabled className="form-control" /></div>
-            </div>
+<div className="profile-details mt-4">
+  <div><label>Username</label><input type="text" value={profile.name} disabled className="form-control" /></div>
+  <div><label>Location</label><input type="text" value={profile.location} disabled className="form-control" /></div>
+  <div><label>Email</label><input type="text" value={profile.email} disabled className="form-control" /></div>
+  <div><label>Interested</label><input type="text" value={categories.length > 0 ? categories.join(', ') : 'N/A'} disabled className="form-control" /></div>
+  <div><label>Phone Number</label><input type="text" value={profile.phone} disabled className="form-control" /></div>
+  <div><label>Role</label><input type="text" value={profile.role} disabled className="form-control" /></div>
+</div>
+
+<div className="mt-4 d-flex gap-3">
+  <Link to="/edit"><button className="btn btn-primary edit-button">Edit</button></Link>
+  <button className="btn btn-warning" onClick={() => setShowModal(true)}>Request Role Change</button>
+</div>
+
 
             <div className="mt-4">
               <h4>Booked Events</h4>

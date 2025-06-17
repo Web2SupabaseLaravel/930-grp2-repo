@@ -1,69 +1,35 @@
 .profile-container {
   background: linear-gradient(135deg, #68263D, #EEE2DC);
   min-height: 100vh;
-  padding: 20px;
+  padding: 1rem;
   font-family: sans-serif;
-  position: relative;
-  overflow: hidden;
-}
-
-.profile-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 300px;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: 0;
 }
 
 .header {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
-}
-
-.back-button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: none;
+  margin-bottom: 1.5rem;
 }
 
 .profile-card {
   background: #ffffff;
-  padding: 30px;
-  max-width: 1500px;
-  height: 700px;
+  padding: 1.5rem;
+  max-width: 1200px;
   margin: 0 auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  position: relative;
-  z-index: 1;
-  border-radius: 10px;
+  border-radius: 8px;
+  height: auto;
 }
 
 .profile-top {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.profile-photo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
 }
 
 .profile-name {
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #333;
 }
@@ -71,50 +37,47 @@
 .profile-details {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-top: 16px;
+  gap: 1rem;
 }
 
 .profile-details label {
   display: block;
   font-weight: bold;
-  margin-bottom: 4px;
+  margin-bottom: 0.25rem;
   color: #666;
 }
 
 .profile-details input {
   width: 100%;
-  padding: 6px 10px;
+  padding: 0.5rem;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 4px;
   background-color: #f9f9f9;
   color: #333;
-  font-size: 14px;
+  font-size: 0.9rem;
 }
-.osaid-button{
+
+.osaid-button {
   background-color: #ffffff;
   color: #68263D;
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 6px;
-  float: right;
-  margin-top: 20px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
-
 }
+
 .osaid-button:hover {
   background-color: #744555;
-  color:#ffffff;
+  color: #ffffff;
 }
+
 .edit-button {
   background-color: #68263D;
   color: white;
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .edit-button:hover {
@@ -124,26 +87,102 @@
 .btn-outline-secondary {
   background-color: #68263D;
   color: white;
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .btn-outline-secondary:hover {
   background-color: #744555;
 }
 
-.qr {
-  width: 130px;
+.btn-warning {
+  background-color: #68263D;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-/* ✅ Media Queries */
+.btn-warning:hover {
+  background-color: #744555;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.qr {
+  width: 120px;
+  display: block;
+  margin: 1rem auto;
+}
+
+.card {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 300px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* Media Queries */
 @media (max-width: 1024px) {
   .profile-card {
-    padding: 20px;
-    height: auto;
+    padding: 1rem;
   }
 }
 
@@ -158,109 +197,34 @@
   }
 
   .edit-button,
-  .btn-outline-secondary {
+  .btn-outline-secondary,
+  .btn-warning,
+  .btn-success,
+  .btn-secondary {
     width: 100%;
-    text-align: center;
-    margin-top: 10px;
+    margin-top: 0.5rem;
   }
 
   .qr {
-    width: 90px;
-    display: block;
-    margin: 10px auto;
+    width: 100px;
   }
 }
 
 @media (max-width: 480px) {
+  .profile-container {
+    padding: 0.5rem;
+  }
+
   .profile-name {
-    font-size: 18px;
-  }
-
-  .profile-photo {
-    width: 70px;
-    height: 70px;
-  }
-
-  .back-button {
-    font-size: 14px;
+    font-size: 1.25rem;
   }
 
   .qr {
-    width: 70px;
+    width: 80px;
   }
-}
 
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.form-control {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.btn-warning {
-  background-color: #68263D;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-left: 10px;
-}
-
-.btn-warning:hover {
-  background-color: #744555;
-}
-
-.btn-success {
-  background-color: #28a745;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-left: 10px;
-}
-
-.btn-secondary:hover {
-  background-color: #5a6268;
+  .modal-content {
+    width: 90%;
+    padding: 1rem;
+  }
 }
