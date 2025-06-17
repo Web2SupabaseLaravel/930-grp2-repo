@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <div className="hero-section d-flex align-items-center text-center">
       <Container>
-        <div className="mx-auto hero-content">
+        <div className="mx-auto hero-content" data-aos="fade-up" data-aos-delay="100">
           <h1 className="display-4 fw-light mb-4">
             Create, Explore, and<br />Manage Events
           </h1>

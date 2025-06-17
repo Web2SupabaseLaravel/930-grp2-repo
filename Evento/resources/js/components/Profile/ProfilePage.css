@@ -90,7 +90,22 @@
   color: #333;
   font-size: 14px;
 }
+.osaid-button{
+  background-color: #ffffff;
+  color: #68263D;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  float: right;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 
+}
+.osaid-button:hover {
+  background-color: #744555;
+  color:#ffffff;
+}
 .edit-button {
   background-color: #68263D;
   color: white;

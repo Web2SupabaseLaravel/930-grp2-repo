@@ -5,7 +5,7 @@ import { HiLightBulb } from 'react-icons/hi';
 const AboutUs = ({ title, description }) => {
   return (
     <Container className="my-4">
-      <div className="about-box">
+      <div className="about-box" data-aos="zoom-in">
         <Row className="align-items-center">
           <Col xs="auto">
             <HiLightBulb className="about-icon" />

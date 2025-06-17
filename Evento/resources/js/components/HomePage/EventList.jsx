@@ -37,19 +37,19 @@ const EventList = ({ title }) => {
 
   return (
     <Container className="my-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex justify-content-between align-items-center mb-4" data-aos="fade-down">
         <h2 className="fw-bold">{title}</h2>
         <Link to="#" className="text-decoration-none text-primary">Explore more &gt;</Link>
       </div>
 
       {loading && (
-        <div className="text-center my-5">
+        <div className="text-center my-5" data-aos="fade-in">
           <Spinner animation="border" variant="primary" />
         </div>
       )}
 
       {error && (
-        <Alert variant="danger" className="text-center">
+        <Alert variant="danger" className="text-center" data-aos="fade-in">
           {error}
         </Alert>
       )}
@@ -57,7 +57,7 @@ const EventList = ({ title }) => {
       {!loading && !error && (
         <Row xs={1} sm={2} md={3} lg={4} className="g-4">
           {events.map((event, idx) => (
-            <Col key={idx}>
+            <Col key={idx} data-aos="fade-up" data-aos-delay={`${idx * 100}`}>
               <EventCard
                 idx={idx}
                 title={event.event_name}

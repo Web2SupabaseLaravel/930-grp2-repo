@@ -40,7 +40,7 @@ function Dashboard() {
         setStats({
           totalUsers: userList.length,
           totalEvents: response.data.data.total_events || 0,
-          pendingRequests: 5 // مؤقتًا ثابت
+          pendingRequests: 5 
         });
         setError(null);
       } else {
