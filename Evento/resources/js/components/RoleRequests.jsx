@@ -41,11 +41,22 @@ const RoleRequests = () => {
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      const response = await api.put(`/role-requests/${id}`, { status: newStatus }, { headers: { 'Accept': 'application/json' } });
-      if (response.data.success) {
-        setRequests(requests.map(request => request.id === id ? { ...request, status: newStatus } : request));
+      const response = await api.put(`/role-requests/${id}`, 
+        { status: newStatus }, 
+        { 
+          headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          } 
+        }
+      );
+      
+      if (response.data) {
+        setRequests(requests.map(request => 
+          request.id === id ? { ...request, status: newStatus } : request
+        ));
       } else {
-        setError(`Update failed: ${response.data.message || 'Unknown error'}`);
+        setError(`Update failed: ${response.data?.message || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Update Error:', {
