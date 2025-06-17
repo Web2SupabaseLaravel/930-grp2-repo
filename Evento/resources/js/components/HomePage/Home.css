@@ -196,14 +196,39 @@ body {
 .footer-email {
   color: #EEE2DC;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
   transition: opacity 0.3s ease;
 }
 
 .footer-email:hover {
-  opacity: 0.9;
+  opacity: 0.8;
 }
+
+.footer-link {
+  color: #EEE2DC;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.footer-link:hover {
+  transform: translateX(5px);
+  text-decoration: underline;
+}
+
+.footer-icon {
+  color: #EEE2DC;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-icon:hover {
+  transform: scale(1.2);
+  color: #fff;
+}
+
 
 /* ====== Responsive Dark/Light Mode ====== */
 @media (prefers-color-scheme: light) {

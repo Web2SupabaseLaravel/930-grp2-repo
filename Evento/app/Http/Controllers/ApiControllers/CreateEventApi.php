@@ -10,32 +10,40 @@ class CreateEventApi extends Controller
 {
     public function index(Request $request)
     {
-        $query = Event::query();
-
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('event_name', 'like', "%$search%")
-                  ->orWhere('address', 'like', "%$search%");
-            });
+        try {
+            $query = Event::query();
+    
+            if ($request->filled('search')) {
+                $search = $request->search;
+                $query->where(function ($q) use ($search) {
+                    $q->where('event_name', 'like', "%$search%")
+                      ->orWhere('address', 'like', "%$search%");
+                });
+            }
+    
+            $sortBy = $request->get('sort_by', 'date');
+            $sortDirection = $request->get('sort_direction', 'asc');
+            $query->orderBy($sortBy, $sortDirection);
+    
+            if ($request->filled('category_id')) {
+                $query->where('category_id', $request->category_id);
+            }
+    
+            $events = $query->get();
+    
+            return response()->json([
+                'success' => true,
+                'data' => $events
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Error fetching events: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching events',
+                'debug' => $e->getMessage()
+            ], 500);
         }
-
-        $sortBy = $request->get('sort_by', 'date');
-        $sortDirection = $request->get('sort_direction', 'asc');
-        $query->orderBy($sortBy, $sortDirection);
-
-        if ($request->filled('category_id')) {
-            $query->where('category_id', $request->category_id);
-        }
-
-        $events = $query->paginate(4)->withQueryString();
-
-        return response()->json([
-            'success' => true,
-            'data' => $events
-        ]);
     }
-
     public function store(Request $request)
     {
         // التحقق من التوثيق وجلب الرول

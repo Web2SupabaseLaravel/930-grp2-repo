@@ -21,12 +21,19 @@ const EventList = ({ title }) => {
           },
         });
 
-        const fetchedEvents = response.data?.data?.data || [];
+        // التحقق من هيكلية الاستجابة
+        const fetchedEvents = response.data?.data || []; // استخدام response.data.data إذا كان التصفح لا يزال موجودًا، أو response.data إذا كان get()
+        console.log("API Response:", response.data);
         console.log("Fetched events:", fetchedEvents);
+
+        if (!Array.isArray(fetchedEvents)) {
+          throw new Error("Unexpected data format from API");
+        }
+
         setEvents(fetchedEvents);
       } catch (err) {
-        console.error("Error fetching events:", err);
-        setError("حدث خطأ أثناء تحميل الأحداث");
+        console.error("Error fetching events:", err.response?.data || err.message);
+        setError("حدث خطأ أثناء تحميل الأحداث. تحقق من السجل للحصول على التفاصيل.");
       } finally {
         setLoading(false);
       }
@@ -54,7 +61,13 @@ const EventList = ({ title }) => {
         </Alert>
       )}
 
-      {!loading && !error && (
+      {!loading && !error && events.length === 0 && (
+        <Alert variant="info" className="text-center" data-aos="fade-in">
+          لا توجد أحداث متاحة حاليًا.
+        </Alert>
+      )}
+
+      {!loading && !error && events.length > 0 && (
         <Row xs={1} sm={2} md={3} lg={4} className="g-4">
           {events.map((event, idx) => (
             <Col key={idx} data-aos="fade-up" data-aos-delay={`${idx * 100}`}>
