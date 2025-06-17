@@ -12,7 +12,7 @@ const Hero = () => {
           <p className="lead mb-4">
             Welcome to Evento, your one-stop solution for event management.
           </p>
-          <a href="#events" className="btn btn-custom">Get Started</a>
+          <a href="/SignUp" className="btn btn-custom">Get Started</a>
         </div>
       </Container>
     </div>

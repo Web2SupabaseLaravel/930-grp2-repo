@@ -163,6 +163,9 @@ useEffect(() => {
     });
     setEditingReviewIndex(index);
     setShowForm(true);
+    setTimeout(() => {
+      document.querySelector('.review-form')?.scrollIntoView({ behavior: 'smooth' });
+    }, 0);
   };
 
   const handleDelete = (index) => {
