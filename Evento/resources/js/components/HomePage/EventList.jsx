@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Alert, Spinner } from 'react-bootstrap';
 import EventCard from './EventCard';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const EventList = ({ title }) => {
   const [events, setEvents] = useState([]);
@@ -38,7 +39,7 @@ const EventList = ({ title }) => {
     <Container className="my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="fw-bold">{title}</h2>
-        <a href="#" className="text-decoration-none text-primary">Explore more &gt;</a>
+        <Link to="#" className="text-decoration-none text-primary">Explore more &gt;</Link>
       </div>
 
       {loading && (

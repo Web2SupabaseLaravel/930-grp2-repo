@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -12,7 +13,7 @@ const Hero = () => {
           <p className="lead mb-4">
             Welcome to Evento, your one-stop solution for event management.
           </p>
-          <a href="/SignUp" className="btn btn-custom">Get Started</a>
+          <Link to="/sign-up" className="btn btn-custom">Get Started</Link>
         </div>
       </Container>
     </div>

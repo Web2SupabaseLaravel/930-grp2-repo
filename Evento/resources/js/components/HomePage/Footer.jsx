@@ -18,9 +18,9 @@ const Footer = ({ brandName, brandName2, email }) => {
           © {currentYear} {brandName} - All rights reserved.
         </div>
         <div>
-          <a href={`mailto:${email}`} className="footer-email">
+          <Link href={`mailto:${email}`} className="footer-email">
             {email}
-          </a>
+          </Link>
         </div>
       </Container>
     </footer>
