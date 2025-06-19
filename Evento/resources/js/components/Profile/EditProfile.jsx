@@ -17,7 +17,6 @@ function EditProfile() {
     <div className="edit-profile container mt-4">
       <UpdateProfileForm />
       <UpdatePasswordForm />
-      <DeleteAccountForm />
       <button onClick={handleSave} className="btn btn-primary mt-4">Save</button>
     </div>
   );

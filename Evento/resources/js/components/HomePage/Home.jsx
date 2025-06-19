@@ -18,16 +18,15 @@ import music from '../../assets/music.png';
 function Home() {
   useEffect(() => {
     AOS.init({
-      duration: 800, // Animation duration in milliseconds
-      once: true, // Animations occur only once when scrolling
-      offset: 100, // Offset (in pixels) from the original trigger point
+      duration: 800, 
+      once: true, 
+      offset: 100, 
     });
   }, []);
 
   const menuItems = [
     { text: 'Home', link: '/home' },
     { text: 'Create Event', link: '/events' }
-    // Dashboard سيتم إضافته ديناميكيًا في Navbar.jsx بناءً على الرول
   ];
 
   const events = [

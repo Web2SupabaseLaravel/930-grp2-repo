@@ -21,8 +21,7 @@ const EventList = ({ title }) => {
           },
         });
 
-        // التحقق من هيكلية الاستجابة
-        const fetchedEvents = response.data?.data || []; // استخدام response.data.data إذا كان التصفح لا يزال موجودًا، أو response.data إذا كان get()
+        const fetchedEvents = response.data?.data || []; 
         console.log("API Response:", response.data);
         console.log("Fetched events:", fetchedEvents);
 

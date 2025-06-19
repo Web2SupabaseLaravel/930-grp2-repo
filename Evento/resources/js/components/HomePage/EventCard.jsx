@@ -13,7 +13,7 @@ import food from '../../assets/food.png';
 import music from '../../assets/music.png';
 import teacher from '../../assets/teacher.png';
 import soccer from '../../assets/soccer.png';
-const localImages = [food, music, teacher, soccer];
+const localImages = [teacher, food, music, soccer];
 
 const EventCard = ({ image, title, date, location, price, description, category, idx = 0 }) => {
   const fallbackImage = localImages[idx % localImages.length]; 

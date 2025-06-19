@@ -10,9 +10,8 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [newRole, setNewRole] = useState('attendee'); // الرول الجديد
+  const [newRole, setNewRole] = useState('attendee'); 
 
-  // دالة fetchProfile كدالة مستقلة داخل المكون
   const fetchProfile = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -77,8 +76,7 @@ const ProfilePage = () => {
       });
       alert(response.data.message);
       setShowModal(false);
-      // إعادة تحميل البيانات بعد نجاح الطلب
-      await fetchProfile(); // استدعاء الدالة هنا
+      await fetchProfile(); 
     } catch (err) {
       console.error('Error requesting role:', err.response?.data || err.message);
       alert('Failed to request role change. Details: ' + (err.response?.data?.message || err.message));
