@@ -76,7 +76,7 @@ const SignUpForm = () => {
                 password: "",
                 confirmPassword: "",
             });
-            navigate("/home");
+            navigate("/welcome");
         } catch (err) {
             setErrors({ api: err.response?.data?.error || "Registration failed. Please try again." });
         }

@@ -40,7 +40,7 @@ const ReviewList = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      // Fetch reviews
+      
       axios
         .get('http://127.0.0.1:8000/api/feedback', {
           headers: { Authorization: `Bearer ${token}` },
@@ -70,7 +70,6 @@ const ReviewList = () => {
           }
         });
   
-      // Fetch events
       axios
         .get('http://127.0.0.1:8000/api/events', {
           headers: { Authorization: `Bearer ${token}` },

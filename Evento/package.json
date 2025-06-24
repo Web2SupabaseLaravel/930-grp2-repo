@@ -28,6 +28,7 @@
         "@fortawesome/react-fontawesome": "^0.2.2",
         "aos": "^2.3.4",
         "bo": "^0.0.3",
+        "framer-motion": "^12.19.1",
         "jwt-decode": "^4.0.0",
         "react-bootstrap": "^2.10.10",
         "react-icons": "^5.5.0",

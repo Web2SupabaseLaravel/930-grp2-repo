@@ -65,6 +65,7 @@ import CreateEventPage from './components/create-events/Create-EvPage';
 import RoleRequests from "./components/RoleRequests";
 import AdminDashboard from "./components/AdminDashboard";
 import Events from "./components/Events";
+import Welcome from "./components/Welcome";
 
 
 
@@ -82,6 +83,7 @@ const App = () => {
                 <Route path="/edit" element={<EditProfile />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/DashBoard" element={<DashBoard />} />
+                <Route path="/welcome" element={<Welcome />} />
                 <Route path="/admin" element={<AdminDashboard />}>
                     <Route path="events" element={<Events />} />
                     <Route path="requests" element={<RoleRequests />} />
