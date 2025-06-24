@@ -28,7 +28,7 @@ function Welcome() {
             transition={{ duration: 1 }}
             style={{
                 minHeight: "100vh",
-                background: "linear-gradient(135deg, #68263D, #f8e1ec)",
+                background: "linear-gradient(135deg, #68263D, #68263D)",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
